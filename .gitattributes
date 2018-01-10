@@ -61,3 +61,9 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+
+########################################################################
+ignore large sections of your project in order to drive down the ratio of certain languages in representation of your repository.
+########################################################################
+static/* MoonMachine/MoonMachine/static/
