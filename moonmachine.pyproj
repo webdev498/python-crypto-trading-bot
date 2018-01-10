@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{f5d9a86d-d6c5-4f7a-8fb8-21cc66e6e9a3}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile />
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="MoonMachine\brainstorming\admin creds.txt" />
+    <Content Include="MoonMachine\brainstorming\class and method hierarchy.txt" />
+    <Content Include="MoonMachine\brainstorming\data flow.txt" />
+    <Content Include="MoonMachine\brainstorming\entire logic flow.txt" />
+    <Content Include="MoonMachine\brainstorming\minimum viable product evaluation.txt" />
+    <Content Include="MoonMachine\brainstorming\static strategy.txt" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\content\bootstrap.css" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\content\bootstrap.min.css" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\content\Custom.css" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\content\site.css" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\bootstrap.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\bootstrap.min.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\Custom\AuthFileUploader.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\Custom\AuthorizedControls.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\Custom\RequestForgeryToken.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery-1.10.2.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery-1.10.2.min.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery.validate.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery.validate.min.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\js_cookie.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\knockout-3.4.2.min.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\modernizr-2.6.2.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\respond.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\respond.min.js" />
+    <Content Include="MoonMachine\MoonMachine\app\static\app\scripts\_references.js" />
+    <Content Include="MoonMachine\MoonMachine\app\templates\app\AuthorizedControls.html" />
+    <Content Include="MoonMachine\MoonMachine\app\templates\app\index.html" />
+    <Content Include="MoonMachine\MoonMachine\obj\Debug\MoonMachine.pyproj.FileListAbsolute.txt" />
+    <Content Include="MoonMachine\MoonMachine\obj\Debug\RoboCoiner.pyproj.FileListAbsolute.txt" />
+    <Content Include="MoonMachine\MoonMachine\requirements.txt" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\base.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\changelists.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\dashboard.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\fonts.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\forms.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\login.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\rtl.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\css\widgets.css" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\fonts\LICENSE.txt" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\fonts\README.txt" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\calendar-icons.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\gis\move_vertex_off.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\gis\move_vertex_on.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-addlink.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-alert.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-calendar.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-changelink.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-clock.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-deletelink.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-no.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-unknown-alt.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-unknown.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\icon-yes.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\inline-delete.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\README.txt" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\search.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\selector-icons.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\sorting-icons.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\tooltag-add.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\img\tooltag-arrowright.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\actions.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\actions.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\admin\DateTimeShortcuts.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\admin\RelatedObjectLookups.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\calendar.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\cancel.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\change_form.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\collapse.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\collapse.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\core.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\inlines.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\inlines.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\jquery.init.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\popup_response.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\prepopulate.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\prepopulate.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\prepopulate_init.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\SelectBox.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\SelectFilter2.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\timeparse.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\urlify.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\vendor\jquery\jquery.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\vendor\jquery\jquery.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\vendor\jquery\LICENSE-JQUERY.txt" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\vendor\xregexp\LICENSE-XREGEXP.txt" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\vendor\xregexp\xregexp.js" />
+    <Content Include="MoonMachine\MoonMachine\static\admin\js\vendor\xregexp\xregexp.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\content\bootstrap.css" />
+    <Content Include="MoonMachine\MoonMachine\static\app\content\bootstrap.min.css" />
+    <Content Include="MoonMachine\MoonMachine\static\app\content\Custom.css" />
+    <Content Include="MoonMachine\MoonMachine\static\app\content\site.css" />
+    <Content Include="MoonMachine\MoonMachine\static\app\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\bootstrap.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\bootstrap.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\Custom\AuthFileUploader.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\Custom\InterfaceUpdater.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\Custom\JsonFileUploader.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\Custom\RequestForgeryToken.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery-1.10.2.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery-1.10.2.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery.validate.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery.validate.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\js_cookie.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\knockout-3.4.2.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\modernizr-2.6.2.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\respond.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\respond.min.js" />
+    <Content Include="MoonMachine\MoonMachine\static\app\scripts\_references.js" />
+    <Content Include="MoonMachine\to do.txt" />
+    <Content Include="MoonMachine\UpgradeLog.htm" />
+    <Content Include="MoonMachine\UpgradeLog2.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MoonMachine\MoonMachine.Strategy\ExecutiveAnalyzer.py" />
+    <Compile Include="MoonMachine\MoonMachine.Strategy\LearningStrategy.py" />
+    <Compile Include="MoonMachine\MoonMachine.Strategy\LibraryIndicators.py" />
+    <Compile Include="MoonMachine\MoonMachine.Strategy\StaticStrategy.py" />
+    <Compile Include="MoonMachine\MoonMachine.Strategy\TensorFlowContext.py" />
+    <Compile Include="MoonMachine\MoonMachine.Strategy\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\controllers\AuthorizedControls.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\controllers\Pages.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\controllers\TradeFeeds.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\controllers\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\migrations\0001_initial.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\migrations\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\models.py" />
+    <Compile Include="MoonMachine\MoonMachine\app\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\bin\wfastcgi.py" />
+    <Compile Include="MoonMachine\MoonMachine\manage.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\SelectionOptions\LabeledConstants.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\SelectionOptions\ModelLimits.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\SelectionOptions\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\settings.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\MarketManager.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\Modelling\DatedLabel.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\Modelling\GraphMaker.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\Modelling\LabeledBar.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\Modelling\LabeledSeries.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\Modelling\Trade.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\Modelling\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\ParallelTrader.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\RecordKeeper.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\RestGateways\BitbucketContext.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\RestGateways\BittrexContext.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\RestGateways\IExchange.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\RestGateways\IndependentReserveContext.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\RestGateways\NexmoContext.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\RestGateways\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\Trading\__init__.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\urls.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\wsgi.py" />
+    <Compile Include="MoonMachine\MoonMachine\MoonMachine\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MoonMachine" />
+    <Folder Include="MoonMachine\brainstorming" />
+    <Folder Include="MoonMachine\MoonMachine" />
+    <Folder Include="MoonMachine\MoonMachine.Strategy" />
+    <Folder Include="MoonMachine\MoonMachine\app" />
+    <Folder Include="MoonMachine\MoonMachine\app\controllers" />
+    <Folder Include="MoonMachine\MoonMachine\app\migrations" />
+    <Folder Include="MoonMachine\MoonMachine\app\static\app\content" />
+    <Folder Include="MoonMachine\MoonMachine\app\static\app\fonts" />
+    <Folder Include="MoonMachine\MoonMachine\app\static\app\scripts" />
+    <Folder Include="MoonMachine\MoonMachine\app\static\app\scripts\Custom" />
+    <Folder Include="MoonMachine\MoonMachine\app\templates\app" />
+    <Folder Include="MoonMachine\MoonMachine\bin" />
+    <Folder Include="MoonMachine\MoonMachine\MoonMachine" />
+    <Folder Include="MoonMachine\MoonMachine\MoonMachine\SelectionOptions" />
+    <Folder Include="MoonMachine\MoonMachine\MoonMachine\Trading" />
+    <Folder Include="MoonMachine\MoonMachine\MoonMachine\Trading\Modelling" />
+    <Folder Include="MoonMachine\MoonMachine\MoonMachine\Trading\RestGateways" />
+    <Folder Include="MoonMachine\MoonMachine\obj\Debug" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\css" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\fonts" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\img" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\img\gis" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\js" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\js\admin" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\js\vendor\jquery" />
+    <Folder Include="MoonMachine\MoonMachine\static\admin\js\vendor\xregexp" />
+    <Folder Include="MoonMachine\MoonMachine\static\app\content" />
+    <Folder Include="MoonMachine\MoonMachine\static\app\fonts" />
+    <Folder Include="MoonMachine\MoonMachine\static\app\scripts" />
+    <Folder Include="MoonMachine\MoonMachine\static\app\scripts\Custom" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

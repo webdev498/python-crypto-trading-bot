@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <meta charset="utf-8" />
+    <title></title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'app/content/Custom.css' %}" />
+</head>
+<body>
+    
+
+    <div width="auto"
+         height="200px">
+        <input id="fileBox"
+               class="moon-button"
+               type="file" 
+               accept=".txt" 
+               data-bind="attr: {id: FileBoxId}" />
+        <br />
+        <br />
+        <button id="submitButton"
+                class="moon-button" 
+                data-bind="click: OnSubmit">submit</button>        
+    </div>
+    <br />
+
+    <div data-bind="if: ShouldDisplayControl">
+        <button id="toggleButton"
+                class="moon-button"></button>
+    </div>
+</body>
+</html>
+
+{% load staticfiles %}
+<script src="{% static 'app/scripts/jquery-1.10.2.min.js' %}" type="text/javascript"></script> <!--type is required for script tags in anything less than html5-->
+<script src="{% static 'app/scripts/js_cookie.js' %}"></script>
+<script src="{% static 'app/scripts/Custom/AuthFileUploader.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/scripts/Custom/RequestForgeryToken.js' %}"></script>
+<script src="{% static 'app/scripts/knockout-3.4.2.min.js' %}"></script>
+<script src="{% static 'app/scripts/Custom/AuthorizedControls.js' %}"></script>
+
+<script>
+    var viewModel = new AuthorizedControlsViewModel();
+    ko.applyBindings(viewModel);
+</script>

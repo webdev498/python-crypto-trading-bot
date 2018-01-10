@@ -1,0 +1,10 @@
+#toggleButton {
+    width: auto;
+    height: 20px;
+    box-sizing: border-box;
+}
+
+.moon-button {
+    background-color:blueviolet;
+    color: lawngreen;
+}

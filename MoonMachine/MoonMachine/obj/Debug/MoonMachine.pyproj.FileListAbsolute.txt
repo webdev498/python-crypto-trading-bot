@@ -1,0 +1,6 @@
+C:\Users\sjsui\Desktop\Workshop\RoboCoiner\RoboCoiner\RoboCoiner\obj\Debug\MoonMachine.pyproj.CoreCompileInputs.cache
+C:\Users\sjsui\Desktop\Workshop\RoboCoiner\RoboCoiner\RoboCoiner\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\sjsui\Desktop\Workshop\RoboCoiner\RoboCoiner\RoboCoiner\bin\wfastcgi.py
+C:\Users\sjsui\Desktop\Workshop\MoonMachine\MoonMachine\MoonMachine\obj\Debug\MoonMachine.pyproj.CoreCompileInputs.cache
+C:\Users\sjsui\Desktop\Workshop\MoonMachine\MoonMachine\MoonMachine\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\sjsui\Desktop\Workshop\MoonMachine\MoonMachine\MoonMachine\bin\wfastcgi.py

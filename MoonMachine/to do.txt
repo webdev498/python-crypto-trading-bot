@@ -1,0 +1,110 @@
+
++ Build the StaticStrategy
+	each indicator should have a window of time it can form in.
+	these will be very general since these patterns form entirely at random.	
+	
+	+ resistance
+		+ store local maximums based on if the next bars price high is lower than the previous bars price high.
+		
+	+ support
+		+ store local minimums based on if the next bars price low is higher than the previous bars price high.
+	
+	+ head and shoulders.
+	
+	+ cup and handle.
+		several months - 1 year
+	
+	+ convergent volume / divergent volume
+		volume should go up as the price goes up, and down in reverse.
+		if it doesnt, this could be a sign of a divergence.
+		
+	+ double peaks / double trough
+		can signal medium or long term trend reversal.
+				
+	+ meme triangle. nullable indicator
+		30 days to form - 90 days to form
+
+	+ how much profit do I need to make per trade?
+		I will make many small trades as long as it covers trading fees and hosting charges.
+
++ how can I make the markets talk to each other for arbitrage profits?		
+	+ make a new class MarketPair
+	+ put all responsibilities of MarketManager in marketpair
+	+ turn market manager into a currency distributor using a new class ResourceDistributionStrategy
+	
++ complete MarketPair
++ Complete MarketManager
++ Complete ResourceDistributionStrategy
+
+
+
+
++ im gonna do oauth2 with bitbucket
+	implement bitbucket api just enough to authenticate
+		https://api.bitbucket.org/2.0/repositories/DCDprivate/robocoiner/commits
+		
+		
+		
+	4. Client Credentials Grant (4.4)
+
+3. Resource Owner Password Credentials Grant (4.3)
+
+Useful if you have the end user's password but you want to use a more secure end user access token instead. This method will not work when the user has two-step verification enabled.
+
+$ curl -X POST -u "client_id:secret" \
+  https://bitbucket.org/site/oauth2/access_token -d grant_type=password \
+  -d username={username} -d password={password}
+
+  
+  
+  Send it in a request header: Authorization: Bearer {access_token}
+
+
+	+ show / hide that status message if succeeds
+	+ display error on the view when could not authenticate
+
++ integrate apis
+	vaultero
+	independent reserve
+	etherdelta
+
++ test getmarketsummary
+	
++ implement safe mode
+
++ migrate to sql server
+
++ see If I can learn sql by making stored procedures, instead of django's orm
+
+	+ one per portfolio item
+		+ transaction table
+		+ market history table
+		+ quantified orderbook table
+		+ tensoflow table?
+		
++ new database switch which prevents ParallelTrader from being instanced on any other threads		
+
++ test csrf
++ nexmo for sms notifer
++ shut down if bot trades at a loss, send a text message
++ prevent hosting updates from overwriting database?
++ take advantage of arbitrage by getting parallel trader to make compare between its markets
++ view graph labels updates so I can categorise release behaviour. github api?
+	reads on site restart
++ pagable graph to view beginning of time
++ generate a new coin address pair for every transaction?
+
++ use matplot lib to send graphs to the client?
++ Is it possible to shift the settings and url files out of the moonmachine folder and into the app folder?
++ store value in vaultero if a crash is detected
++ two buttons for backtesting static and learning
++ backtest against the database. sqlite wont be suitable since it could override published database
++ once finished, set settings.py/DEBUG to false
+
+NOTES
+=============
++ vs 2017 js breakpoints dont work in django
+
++ togglebutton is not defined when it should be
+	+ an element with the attribute toggleButton must exist before the viewmodel is defined. the problem is I only want to define the label once. right now im creating the id observable then immediately getting an element with that id. this is why an initialize method is important: it fetches the element after the viewmodel has bound the attribute.
+	I dont like the initialize method because it doubles the constructor. I dont think it is possible so I will have to choose a lesser evil. ill go with the double text since that breaks less

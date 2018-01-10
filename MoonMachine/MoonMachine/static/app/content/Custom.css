@@ -1,0 +1,6 @@
+#toggleButton {
+    width: auto;
+    height: 20px;
+    box-sizing: border-box;
+    float: right;
+}

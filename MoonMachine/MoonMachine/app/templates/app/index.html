@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'app/content/Custom.css' %}" />
+    </head>
+
+    <body>      
+        <form action="admin">
+            <button class="moon-button">
+                log in
+            </button>
+        </form>        
+        <br />
+        <br />
+        <form action="admin/authorizedcontrols">
+            <button class="moon-button">
+                Take control
+            </button>
+        </form>
+
+    </body>
+</html>
+
+{% load staticfiles %}
+

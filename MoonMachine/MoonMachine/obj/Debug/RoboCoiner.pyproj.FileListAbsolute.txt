@@ -1,0 +1,3 @@
+C:\Users\sjsui\Desktop\Workshop\RoboCoiner\RoboCoiner\RoboCoiner\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\sjsui\Desktop\Workshop\RoboCoiner\RoboCoiner\RoboCoiner\bin\wfastcgi.py
+C:\Users\sjsui\Desktop\Workshop\RoboCoiner\RoboCoiner\RoboCoiner\obj\Debug\RoboCoiner.pyproj.CoreCompileInputs.cache
