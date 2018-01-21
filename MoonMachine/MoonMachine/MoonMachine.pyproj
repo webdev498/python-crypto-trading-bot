@@ -59,7 +59,6 @@
     <Compile Include="MoonMachine\settings.py" />
     <Compile Include="MoonMachine\Trading\Strategy\ExecutiveAnalyzer.py" />
     <Compile Include="MoonMachine\Trading\Strategy\LearningStrategy.py" />
-    <Compile Include="MoonMachine\Trading\Strategy\LibraryIndicators.py" />
     <Compile Include="MoonMachine\Trading\Strategy\StaticStrategy.py" />
     <Compile Include="MoonMachine\Trading\Strategy\TensorFlowContext.py" />
     <Compile Include="MoonMachine\Trading\Strategy\__init__.py" />

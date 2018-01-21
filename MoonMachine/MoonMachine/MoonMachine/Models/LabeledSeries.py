@@ -1,4 +1,5 @@
 from pyalgotrade.bar import Bar
+from pyalgotrade.dataseries.bards import BarDataSeries
 from datetime import datetime
 from MoonMachine.Models.LabeledBar import LabeledBar
 from MoonMachine.Models.DatedLabel import DatedLabel
@@ -11,6 +12,7 @@ class LabeledSeries(MutableSequence):
         """creates a series of LabeledBars by tagging bars with their closest labels"""
         super().__init__()
         self.__items = list()
+        self.__
 
         for bar in listOfNormalBars:
             labeledBarWip = LabeledBar(bar, list())
