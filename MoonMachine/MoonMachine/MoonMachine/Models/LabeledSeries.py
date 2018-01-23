@@ -12,7 +12,6 @@ class LabeledSeries(MutableSequence):
         """creates a series of LabeledBars by tagging bars with their closest labels"""
         super().__init__()
         self.__items = list()
-        self.__
 
         for bar in listOfNormalBars:
             labeledBarWip = LabeledBar(bar, list())
