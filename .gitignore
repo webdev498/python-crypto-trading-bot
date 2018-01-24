@@ -101,5 +101,4 @@ ENV/
 .mypy_cache/
 
 MoonMachine/MoonMachine/MoonMachine/HiddenSettings.py
-MoonMachine/MoonMachine/MoonMachine/Trading/Strategy/
 MoonMachine/brainstorming/
