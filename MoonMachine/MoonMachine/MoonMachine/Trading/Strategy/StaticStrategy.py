@@ -9,3 +9,4 @@ class StaticStrategy(BaseStrategy):
         self.__LongTermIndicators = []
 
     def DetermineDecision(self, data = LabeledSeries):
+        pass
