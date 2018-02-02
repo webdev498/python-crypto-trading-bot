@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 import posixpath
 from MoonMachine.HiddenSettings import Hidden
+from MoonMachine.SelectionOptions.LabeledConstants import LOG_FILE
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -149,32 +150,23 @@ TEMPLATES = [
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR + LOG_FILE,
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
         }
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
             'propagate': True,
         },
-
-    'applogfile': {
-    'level':'DEBUG',
-    'class':'logging.handlers.RotatingFileHandler',
-    'filename': os.path.join(os.path.defpath, 'APPNAME.log'),
-    'maxBytes': 1024*1024*15, # 15MB
-    'backupCount': 10,
-    },
     }
 }
 

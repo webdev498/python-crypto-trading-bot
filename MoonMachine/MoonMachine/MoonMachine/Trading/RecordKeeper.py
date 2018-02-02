@@ -7,7 +7,7 @@ class RecordKeeper(object):
         self.__notifier = NexmoContext()
         self.BitbucketGateway = BitbucketContext()
 
-    def Authenticate(self, authCredentials = []):
+    def Authenticate(self, authCredentials = list()):
         authErrors = self.__notifier.AuthenticateNotiferService (authCredentials)
         authErrors += self.BitbucketGateway.TryAuthenticate(authCredentials)
         return authErrors
@@ -16,8 +16,8 @@ class RecordKeeper(object):
         pass
 
     def GetMarketSummaries(self):
-        return []
+        return list()
 
-    def GetOneSummary(self, index = int):
+    def GetOneSummary(self, index = int()):
         pass
 

@@ -2,5 +2,9 @@
     width: auto;
     height: 20px;
     box-sizing: border-box;
-    float: right;
+}
+
+.moon-button {
+    background-color:blueviolet;
+    color: lawngreen;
 }

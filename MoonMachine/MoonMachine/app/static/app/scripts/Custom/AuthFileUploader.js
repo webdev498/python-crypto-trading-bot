@@ -5,11 +5,10 @@ function AuthFileUploader(fileBoxId)
 {
     var self = this;
     self.AuthenticateWithJson;
-    var publicStuff;
 
     self.fileBox = document.getElementById(fileBoxId);
     
-    self.AuthenticateWithJson = function(jsonString)
+    function AuthenticateWithJson(jsonString) //declared functions are always available at any line in the class.
     {        
         $.ajax ("authenticatewithfile", {
             data: { 
@@ -17,39 +16,53 @@ function AuthFileUploader(fileBoxId)
             },
             method: "POST"
         })
-        .success( function(data)
+        .success( function OnSuccess(data)
         {
             if (data === "") 
             {
-                publicStuff.IsAuthenticated(true);
-                window.alert("Authentication successful!");
+                self.publicStuff.IsAuthenticated(true);
             }
 
-            else {
-                publicStuff.IsAuthenticated(false);
+            else {                
+                self.publicStuff.IsAuthenticated(false);
+                window.alert ("authentication failed: " + data);
             }
         })
-        .error(function(jqXHR, textStatus, errorThrown)
+        .error(function OnError(jqXHR, textStatus, errorThrown)
         {
-            window.alert ("request broke.");
+            window.alert ("authentication failed: " + errorThrown);
         });
     };
 
-    publicStuff = {
+    self.publicStuff = {
         AttemptAuthenticationWithInput: function()
         {
             var file = fileBox.files[0];
             var reader = new FileReader();
             
-            reader.onloadend = function() 
+            reader.onloadend = function SubmitReadersText() 
             {
                 var correctFormat = JSON.parse (reader.result);
                 var correctString = JSON.stringify (correctFormat);
-                self.AuthenticateWithJson (correctString);
+                AuthenticateWithJson (correctString);
             };
-            reader.readAsText(file);
+
+            if (file !== null)
+            {
+                reader.readAsText(file);
+            }
+
+            else if (self.publicStuff.IsAuthenticated())
+            {
+                AuthenticateWithJson(""); //covers up the fact that all authentication data must be erased when toggle button is clicked                
+            }             
+
+            else
+            {
+                window.alert("Input file not found.");
+            }
         },
-        IsAuthenticated: ko.observable()
+        IsAuthenticated: ko.observable(false)
     };
-    return publicStuff;
+    return self.publicStuff;
 }

@@ -1,6 +1,6 @@
 ///<reference path="../js_cookie.js" />
 
-function SetupToken()
+function SetupCsrfToken()
 {
     var csrfToken = Cookies.get('csrftoken');
 
@@ -20,10 +20,10 @@ function SetupToken()
         {
             beforeSend: function (xhr, settings)
             {
-                if(CsrfSafeMethod (settings.type) === false && 
+                if (CsrfSafeMethod (settings.type) === false && 
                     this.crossDomain === false)
                 {
-                    xhr.setRequestHeader ('X-CSRFToken', csrfToken); //fixed bug where string was not in the right format
+                    xhr.setRequestHeader ('X-CSRFToken', csrfToken); //fixed bug where string was not in the right forma
                 }
             }
         }

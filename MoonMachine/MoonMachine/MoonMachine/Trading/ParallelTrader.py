@@ -8,11 +8,11 @@ from MoonMachine.Trading.MarketManager import MarketManager
 from MoonMachine.SelectionOptions.LabeledConstants import *
 
 class ParallelTrader(Thread):
-    START_STATE = 'Start'
-    STOP_STATE = 'Stop'
+    START_STATE = 'Idle'
+    STOP_STATE = 'Running'
 
     def __init__(self):
-        Thread.__init__(self)        
+        Thread.__init__(self, name = "ParallelTrader")        
         self.ToggleSwitchesState = ParallelTrader.START_STATE
         self.__continueRunning = bool
 
@@ -34,8 +34,8 @@ class ParallelTrader(Thread):
         self.__continueRunning = False
 
     def Authenticate (self, namedAuthenticationPairs = dict):
-        if self.IsAuthenticated() == False:
-            authErrors = str
+        if self.IsSufficientlyAuthenticated() == False:
+            authErrors = str()
 
             for market in self.__portfolio:
                 authErrors += market.AttemptAuthentication(namedAuthenticationPairs)
@@ -45,7 +45,8 @@ class ParallelTrader(Thread):
         else:
             return ""
 
-    def IsAuthenticated(self):
+    def IsSufficientlyAuthenticated(self):
+        """NOT THREAD SAFE""" 
         for market in self.__portfolio:
             if market.IsAuthenticated == False:
                 return False

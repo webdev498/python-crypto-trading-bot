@@ -7,11 +7,11 @@ class BitbucketContext(object):
 
     def __init__(self):
         self.__CommitLabels = []
-        self.__accessToken = str
-        self.__refreshToken = str
+        self.__accessToken = str()
+        self.__refreshToken = str()
 
-    def TryAuthenticate(self, authCredentials = dict):
-        authErrors = str
+    def TryAuthenticate(self, authCredentials = dict()):
+        authErrors = str()
 
         try:
             pass

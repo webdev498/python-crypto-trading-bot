@@ -45,10 +45,11 @@
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
     <Compile Include="manage.py" />
+    <Compile Include="MoonMachine\HiddenSettings.py" />
     <Compile Include="MoonMachine\Models\DatedLabel.py" />
     <Compile Include="MoonMachine\Models\GraphMaker.py" />
     <Compile Include="MoonMachine\Models\LabeledBar.py" />
-    <Compile Include="MoonMachine\Models\LabeledSeries.py" />
+    <Compile Include="MoonMachine\Models\LabeledBarSeries.py" />
     <Compile Include="MoonMachine\Models\Trade.py" />
     <Compile Include="MoonMachine\Models\__init__.py">
       <SubType>Code</SubType>
@@ -60,13 +61,11 @@
     <Compile Include="MoonMachine\Trading\Strategy\ExecutiveAnalyzer.py" />
     <Compile Include="MoonMachine\Trading\Strategy\LearningStrategy.py" />
     <Compile Include="MoonMachine\Trading\Strategy\StaticStrategy.py" />
-    <Compile Include="MoonMachine\Trading\Strategy\TensorFlowContext.py" />
     <Compile Include="MoonMachine\Trading\Strategy\__init__.py" />
     <Compile Include="MoonMachine\Trading\MarketManager.py" />
     <Compile Include="MoonMachine\Trading\ParallelTrader.py" />
     <Compile Include="MoonMachine\Trading\RecordKeeper.py" />
     <Compile Include="MoonMachine\Trading\RestGateways\BitbucketContext.py" />
-    <Compile Include="MoonMachine\Trading\RestGateways\BittrexContext.py" />
     <Compile Include="MoonMachine\Trading\RestGateways\IExchange.py" />
     <Compile Include="MoonMachine\Trading\RestGateways\IndependentReserveContext.py" />
     <Compile Include="MoonMachine\Trading\RestGateways\NexmoContext.py" />

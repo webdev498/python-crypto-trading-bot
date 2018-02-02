@@ -1,46 +1,41 @@
 ///<reference path="../jquery-1.10.2.js" />
+///<reference path="../knockout-3.4.2.min.js" />
 
-function AuthFileUploader(inputsId, resultLabelsId)
+function AuthFileUploader(fileBoxId)
 {
     var self = this;
     self.AuthenticateWithJson;
-    self.publicStuff;
+    var publicStuff;
 
-    self.fileBox = document.getElementById(inputsId);
-    self.statusLabel = document.getElementById (resultLabelsId);
+    self.fileBox = document.getElementById(fileBoxId);
     
-    AuthenticateWithJson = function(jsonString)
-    {
-        $.ajax 
-        (
+    self.AuthenticateWithJson = function(jsonString)
+    {        
+        $.ajax ("authenticatewithfile", {
+            data: { 
+                'authenticationFile': jsonString
+            },
+            method: "POST"
+        })
+        .success( function(data)
+        {
+            if (data === "") 
             {
-                url: "authenticatewithfile",
-
-                data: { 
-                    'authenticationFile': jsonString
-                },
-                method: "POST",
-                dataType: "json",                
-
-                success: function(data)
-                {
-                    var authOutcome = Boolean (data);
-
-                    if (authOutcome === true) 
-                    {
-                        statusLabel.innerText = "Authentication successful! Click for main page.";
-                    }
-
-                    else 
-                    {
-                        statusLabel.innerHTML = "";        
-                    }
-                }
+                publicStuff.IsAuthenticated(true);
+                window.alert("Authentication successful!");
             }
-        );
+
+            else {
+                publicStuff.IsAuthenticated(false);
+            }
+        })
+        .error(function(jqXHR, textStatus, errorThrown)
+        {
+            window.alert ("request broke.");
+        });
     };
 
-    self.publicStuff = {
+    publicStuff = {
         AttemptAuthenticationWithInput: function()
         {
             var file = fileBox.files[0];
@@ -48,10 +43,13 @@ function AuthFileUploader(inputsId, resultLabelsId)
             
             reader.onloadend = function() 
             {
-                self.AuthenticateWithJson (reader.result);
+                var correctFormat = JSON.parse (reader.result);
+                var correctString = JSON.stringify (correctFormat);
+                self.AuthenticateWithJson (correctString);
             };
             reader.readAsText(file);
-        }
+        },
+        IsAuthenticated: ko.observable()
     };
-    return self.publicStuff;
+    return publicStuff;
 }

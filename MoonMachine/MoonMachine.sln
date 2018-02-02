@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "moonmachine", "..\moonmachine.pyproj", "{F5D9A86D-D6C5-4F7A-8FB8-21CC66E6E9A3}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MoonMachine", "MoonMachine\MoonMachine.pyproj", "{FF2DBC94-6D65-4C9B-BB6B-A5F4A36F5E82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,8 +10,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F5D9A86D-D6C5-4F7A-8FB8-21CC66E6E9A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5D9A86D-D6C5-4F7A-8FB8-21CC66E6E9A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2DBC94-6D65-4C9B-BB6B-A5F4A36F5E82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2DBC94-6D65-4C9B-BB6B-A5F4A36F5E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2DBC94-6D65-4C9B-BB6B-A5F4A36F5E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2DBC94-6D65-4C9B-BB6B-A5F4A36F5E82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ///<reference path="../js_cookie.js" />
 
-function ApplyToken()
+function SetupCsrfToken()
 {
     var csrfToken = Cookies.get('csrftoken');
 
@@ -20,15 +20,11 @@ function ApplyToken()
         {
             beforeSend: function (xhr, settings)
             {
-                if(CsrfSafeMethod (settings.type) === false && 
+                if (CsrfSafeMethod (settings.type) && 
                     this.crossDomain === false)
                 {
-                    xhr.setRequestHeader ('X-CSRFToken', csrfToken); //fixed bug where string was not in the right format
-                }
-
-                else
-                {
-                    window.alert ("CSRF token could not be added to your request!");
+                    window.alert('csrf token set ');
+                    xhr.setRequestHeader ('X-CSRFToken', csrfToken); //fixed bug where string was not in the right forma
                 }
             }
         }

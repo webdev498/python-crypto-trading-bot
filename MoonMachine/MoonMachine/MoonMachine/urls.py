@@ -3,8 +3,8 @@ Definition of urls for MoonMachine.
 """
 
 from django.conf.urls import url
-from app.controllers.Pages import Pages
-from app.controllers.AuthorizedControls import AuthorizedControls
+from app.controllers.Pages import *
+from app.controllers.AuthorizedControls import *
 from app.controllers.TradeFeeds import TradeFeeds
 from django.contrib.auth.decorators import login_required
 
@@ -23,7 +23,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="app/index.html")),
 
     url(r'^(?i)admin/authorizedcontrols', 
-        Pages.AuthorizedControls),
+        AuthorizedControls),
 
     url(r'^(?i)admin', include(admin.site.urls),
         name = 'admin'),
@@ -32,12 +32,12 @@ urlpatterns = [
 
     #omitting the appended $ means it will match on a string which contains, not equals, the expression   
     url(r'^(?i)admin/toggleoperations', 
-        AuthorizedControls.ToggleOperations),
+        ToggleOperations),
 
     url(r'^(?i)admin/getoperationstoggleidentifier',
-        AuthorizedControls.GetOperationsToggleIdentifier),
+        GetOperationsToggleIdentifier),
 
     url(r'^(?i)admin/authenticatewithfile',
-        AuthorizedControls.AuthenticateWithFile),
+        AuthenticateWithFile),
 
 ]

@@ -4,7 +4,28 @@
     box-sizing: border-box;
 }
 
-.moon-button {
+.green-and-purple {
     background-color:blueviolet;
     color: lawngreen;
+}
+
+.beige-background {
+    background-color:beige;
+}
+
+.left-buttons {
+    margin-right:auto;
+    width: 20%;
+    float:left;    
+}
+
+.right-buttons {
+    margin-left: auto;
+    width: 20%;
+    float:right;
+}
+
+.focus-of-box {
+    font-weight: bold;
+    font-size: x-large;
 }

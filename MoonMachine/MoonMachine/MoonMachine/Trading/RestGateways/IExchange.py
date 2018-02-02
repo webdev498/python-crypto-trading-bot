@@ -12,7 +12,7 @@ class IExchange(ABC):
         pass      
 
     @abstractmethod
-    def GetMarketUpdate(self, lastKnownBar = Bar, labels = list, primarySecurity = str, secondarySecurity = str):
+    def GetMarketUpdate(self, lastKnownBar = Bar(), labels = list(), primarySecurity = str(), secondarySecurity = str()):
         pass
 
     @abstractproperty
@@ -20,13 +20,13 @@ class IExchange(ABC):
         pass
 
     @abstractmethod
-    def AuthenticateExchange (self, authDetails = dict, primarySecurity = str, secondarySecurity = str):
+    def AuthenticateExchange (self, authDetails = dict(), primarySecurity = str(), secondarySecurity = str()):
         pass
 
     @abstractmethod
-    def Buy(self, securityToReceive = str, securityToGive = str):
+    def Buy(self, securityToReceive = str(), securityToGive = str()):
         pass
 
     @abstractmethod
-    def Sell(self, securityToGive = str, securityToReceive = str):
+    def Sell(self, securityToGive = str(), securityToReceive = str()):
         pass

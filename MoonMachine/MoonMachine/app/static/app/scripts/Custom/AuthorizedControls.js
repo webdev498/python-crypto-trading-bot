@@ -1,49 +1,46 @@
-///<reference path="../Custom/RequestForgeryToken.js" />
 ///<reference path="../Custom/AuthFileUploader.js" />
 ///<reference path="../jquery-1.10.2.js" />
 ///<reference path="../knockout-3.4.2.min.js" />
 
 function AuthorizedControlsViewModel()
 {
-    var self = this;
-    SetupToken();
-    self.FileUploader;
+    var self = this;      
+    self.FileUploader = new AuthFileUploader("fileBox");
 
     var publicStuff = {
-        ToggleButtonId: ko.observable("toggleButton"),
-        FileBoxId: ko.observable("fileBox"),
-        SubmitButtonId: ko.observable("submitButton"),
-        
-        ShouldDisplayControl: ko.pureComputed(function(){
-            return self.FileUploader.IsAuthenticated();
-        }),
+        ShouldDisplayControl: ko.pureComputed(function()
+        {
+            ApplyCurrentStatus();
+            return self.FileUploader.IsAuthenticated(); 
+        }, self),
 
-        OnSubmit: function() {
+        OnSubmit: function()
+        {
             self.FileUploader.AttemptAuthenticationWithInput();
         },   
         
-        OnToggle: function() {
+        OnToggle: function() {            
             $.ajax ('ToggleOperations', {
                     data: { 
                     },
                     method: "POST"
                 }
             )
-            .success(function () {
-                self.UpdateButtonLabelFromState();
+            .success(function()
+            {
+                ApplyCurrentStatus();
             });
-        },        
+        },
+
+        BotsStatus: ko.observable()
     };
-    self.ToggleButton = document.getElementById(publicStuff.ToggleButtonId());
-    self.FileUploader = new AuthFileUploader(publicStuff.FileBoxId());
 
-    self.UpdateButtonLabelFromState = function() {
-        self.ToggleButton.innerHTML = 'Loading...';
-
-        $.getJSON('GetOperationsToggleIdentifier', {}, function (data, textStatus, jqXHR) {
-            self.ToggleButton.innerHTML = String(data); //im using innerHTML because its the dom standard; textContent isnt universal yet
+    function ApplyCurrentStatus()
+    {
+        $.getJSON('GetOperationsToggleIdentifier', {}, function OnGot(data, textStatus, jqXHR)
+        {
+            publicStuff.BotsStatus(JSON.stringify(data));
         });
-    };
-    self.UpdateButtonLabelFromState();
+    }
     return publicStuff;
 }

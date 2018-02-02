@@ -8,28 +8,44 @@
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'app/content/Custom.css' %}" />
 </head>
-<body>
-    
-
+<body>    
     <div width="auto"
-         height="200px">
+         height="200px"
+         class="left-buttons beige-background">
+        <span class="focus-of-box"
+              style="text-decoration: underline">
+            Exchange Authentication
+        </span>
+        <br />
+        <br />
+
         <input id="fileBox"
-               class="moon-button"
                type="file" 
                accept=".txt" 
-               data-bind="attr: {id: FileBoxId}" />
+               />
         <br />
         <br />
         <button id="submitButton"
-                class="moon-button" 
+                class="green-and-purple" 
                 data-bind="click: OnSubmit">submit</button>        
     </div>
-    <br />
+    <br />    
 
-    <div data-bind="if: ShouldDisplayControl">
-        <button id="toggleButton"
-                class="moon-button"></button>
-    </div>
+    <div class="right-buttons beige-background">
+        <div> 
+            <span>Operation Status: </span>
+            <span data-bind="text: BotsStatus"
+                  class="focus-of-box"></span>
+        </div>              
+
+        <div data-bind="if: ShouldDisplayControl">
+            <button id="toggleButton"
+                    class="green-and-purple"
+                    data-bind="click: OnToggle">
+                Toggle Operations
+            </button>
+        </div>
+    </div>  
 </body>
 </html>
 
@@ -42,6 +58,7 @@
 <script src="{% static 'app/scripts/Custom/AuthorizedControls.js' %}"></script>
 
 <script>
+    SetupCsrfToken();
     var viewModel = new AuthorizedControlsViewModel();
     ko.applyBindings(viewModel);
 </script>
