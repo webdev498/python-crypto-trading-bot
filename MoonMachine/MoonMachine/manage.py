@@ -9,7 +9,9 @@ from MoonMachine.Trading.ParallelTrader import ParallelTrader
 from MoonMachine.settings import BASE_DIR
 from MoonMachine.SelectionOptions.LabeledConstants import LOG_FILE
 
-open(BASE_DIR + LOG_FILE, mode = 'w').close() #clear the previous log
+with open(BASE_DIR + LOG_FILE, mode = 'w') as clearedLog:
+    pass
+
 Trader = ParallelTrader()
 
 try:

@@ -50,12 +50,7 @@ function AuthFileUploader(fileBoxId)
             if (file !== null)
             {
                 reader.readAsText(file);
-            }
-
-            else if (self.publicStuff.IsAuthenticated())
-            {
-                AuthenticateWithJson(""); //covers up the fact that all authentication data must be erased when toggle button is clicked                
-            }             
+            }    
 
             else
             {

@@ -54,6 +54,9 @@
     <Compile Include="MoonMachine\Models\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MoonMachine\SelectionOptions\ApplicationStatus.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MoonMachine\SelectionOptions\LabeledConstants.py" />
     <Compile Include="MoonMachine\SelectionOptions\ModelLimits.py" />
     <Compile Include="MoonMachine\SelectionOptions\__init__.py" />
