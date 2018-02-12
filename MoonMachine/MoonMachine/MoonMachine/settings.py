@@ -155,18 +155,25 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': BASE_DIR + LOG_FILE,
+            'formatter': 'dated'
         },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
+            'formatter': 'dated'
         }
     },
     'loggers': {
         'django': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': True
         },
+    },
+    'formatters': {
+        'dated': {
+            'format': "%(created)f; %(levelname)s; %(message)s"
+        }
     }
 }
 

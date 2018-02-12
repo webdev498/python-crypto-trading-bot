@@ -22,15 +22,18 @@ class ParallelTrader(object):
         
     def GetToggleSwitchesState(self):
         """Thread safe"""
+        self.__logger.info('returning switches state.')
         return self.__operation.ToggleSwitchesState
 
     def Start(self):
         """NOT THREAD SAFE"""
         if self.IsSufficientlyAuthenticated(): #blocks running a thread twice before Trader can change its ToggleSwitchesName
+            self.__logger.info('starting parallel trader.')
             self.__ToggleOperation(True)
 
     def Stop(self):
         """NOT THREAD SAFE"""
+        self.__logger.info('stopping parallel trader.')
         self.__ToggleOperation(False)
 
     def __ToggleOperation(self, ShouldStart = bool):
@@ -38,31 +41,30 @@ class ParallelTrader(object):
 
         with threadLock:
             if ShouldStart and self.__operation.is_alive() == False: #ensure that thread cannot be started twice
+                self.__logger.info('toggling operation to state: ' + str(ShouldStart))
                 self.__operation.start()
 
-            elif self.__operation.is_alive():                    
+            elif self.__operation.is_alive():
+                self.__logger.info('toggling operation to state: ' + str(ShouldStart))
+                self.__operation.ToggleSwitchesState = ParallelTrader.IDLE_STATE
+
                 while self.__operation.is_alive():
                     pass
 
+                self.__logger.info('parallel trader stopped.')
                 self.__operation = ParallelTrader._Operation(self.__portfolio)
 
     def Authenticate (self, namedAuthenticationPairs = dict):
         """NOT THREAD SAFE"""
+        originalState = self.__operation.is_alive()
         self.__ToggleOperation(False)
-
-        if self.IsSufficientlyAuthenticated() == False:
-            authErrors = str()
-
-            for market in self.__portfolio:
-                authErrors += market.AttemptAuthentication(namedAuthenticationPairs)
-
-            return authErrors
-
-        else:
-            return ""
+        authErrors = str()        
+        self.__portfolio 
+        self.__ToggleOperation(originalState)
+        return authErrors
 
     def IsSufficientlyAuthenticated(self):
-        """NOT THREAD SAFE""" 
+        """thread safe""" 
         for market in self.__portfolio:
             if market.IsAuthenticated == False:
                 return False
@@ -82,7 +84,7 @@ class ParallelTrader(object):
             if self.ToggleSwitchesState == ParallelTrader.IDLE_STATE:
                 self.ToggleSwitchesState = ParallelTrader.RUNNING_STATE      
                 
-                while self.ToggleSwitchesState == ParallelTrader.RUNNING_STATE:                          
+                while self.ToggleSwitchesState == ParallelTrader.RUNNING_STATE:      
                     for market in self.__markets:
                         market.Work()
 
