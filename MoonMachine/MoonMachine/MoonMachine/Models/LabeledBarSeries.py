@@ -12,7 +12,7 @@ class LabeledBarSeries(MutableSequence):
         super().__init__()
         self.UnderlyingBars = BarDataSeries()
         self.__combined = list()
-        self.__log = Logger(self.__class__)
+        self.__log = Logger(str(self.__class__))
         self.__log.info("constructing.")
 
         for currentBar in listOfNormalBars:
@@ -30,7 +30,7 @@ class LabeledBarSeries(MutableSequence):
 
             self.__combined.append(labeledBarWip)         
             
-        self.__log.info(self.__class__ + "constructed. ")
+        self.__log.info(str(self.__class__) + "constructed. ")
 
     def __removePreviousOccurrencesOfLabel(self, label = str):
         counter = 0
@@ -53,7 +53,8 @@ class LabeledBarSeries(MutableSequence):
 
     @overrides
     def count(self, value):
-        return self.__combined.count()
+        self.__log.error("count override not supported")
+        raise NotImplementedError()
 
     @overrides
     def extend(self, values = list):

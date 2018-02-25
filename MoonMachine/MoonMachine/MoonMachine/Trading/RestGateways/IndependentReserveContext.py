@@ -8,6 +8,10 @@ import time
 import hmac,hashlib
 import json
 from datetime import datetime
+import logging
+
+from MoonMachine.Models.Order import Order
+from MoonMachine.Models.Transaction import Transaction
 
 from ccxt.independentreserve import independentreserve
 
@@ -18,13 +22,15 @@ class IndependentReserveContext(IExchange):
         super().__init__()
         self.__publicKey = str()
         self.__privateKey = str()
+        self.__log = logging.getLogger(str(self.__class__))
+        self.__profitPercentage = 0.02
 
     @overrides
     def Name(self):
         return "independent exchange"
 
     @overrides
-    def AuthenticateExchange (self, authDetails = dict, primarySecurity = str(), secondarySecurity = str()):
+    def AuthenticateExchange (self, authDetails = dict, primarySecurity = str, secondarySecurity = str):
         environmentLabel = ". " + self.Name() + ": ";
         authErrors = str()   
         return authErrors
@@ -32,7 +38,7 @@ class IndependentReserveContext(IExchange):
     def __CreateNonce(self):
         return int(time.time())
 
-    def __CreateAuthenticationParamsArray(self, parameterPairs = dict, url = str()):
+    def __CreateAuthenticationParamsArray(self, parameterPairs = dict, url = str):
         """parametersPairs must be string keys and values"""
         outputList = list()
         outputList.append(url)
@@ -43,7 +49,7 @@ class IndependentReserveContext(IExchange):
 
         return outputList
 
-    def __CreateAuthenticationSignature(self, url = str(), finalParameters = []):
+    def __CreateAuthenticationSignature(self, url = str, finalParameters = list):
         message = ','.join(finalParameters)
 
         signature = hmac.new(self.__privateKey.encode('utf-8'),
@@ -52,7 +58,7 @@ class IndependentReserveContext(IExchange):
 
         return signature
 
-    def __CreateAuthenticationData(self, signature = str(), parameterPairs = dict):
+    def __CreateAuthenticationData(self, signature = str, parameterPairs = dict):
         authData = {"signature": signature}
 
         for item in parametersList:
@@ -64,7 +70,7 @@ class IndependentReserveContext(IExchange):
         return {'Content-Type': 'application/json'}
 
     @overrides
-    def GetMarketUpdate(self, lastKnownBar = BasicBar, labels = list, primarySecurity = str(), secondarySecurity = str()):
+    def GetMarketUpdate(self, lastKnownBar = BasicBar, labels = list, primarySecurity = str, secondarySecurity = str):
         """Returns a LabeledBar of todays market summary."""
         requestLocator = r"https://api.independentreserve.com/Public/GetMarketSummary?primarycurrencycode=" + primarySecurity + "&secondarycurrencycode=" + secondarySecurity
         response = requests.get (requestLocator)
@@ -91,9 +97,22 @@ class IndependentReserveContext(IExchange):
         return labeledSeries
 
     @overrides
-    def Buy(self, securityToReceive = str(), securityToGive = str()):
-        pass
+    def Buy(self, securityToGive = str, securityToReceive = str, giveAmount = int, receiveAmount = int):
+        return Order()
 
     @overrides
-    def Sell(self, securityToGive = str(), securityToReceive = str()):
-        pass
+    def Sell(self, securityToGive = str, securityToReceive = str, giveAmount = int, receiveAmount = int):
+        return Order()
+
+    @overrides
+    def ExchangesMinimumProfitPercentage(self):
+        self.__log.info("returning a profit percentage of " + str(self.__profitPercentage))
+        return self.__profitPercentage
+
+    @overrides
+    def GetOpenOrders(self):
+        return list()
+
+    @overrides
+    def CancelOrder(self, order = Order):
+        return Transaction()

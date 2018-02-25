@@ -10,7 +10,7 @@ class BitbucketContext(object):
         self.__accessToken = str()
         self.__refreshToken = str()
 
-    def TryAuthenticate(self, authCredentials = dict()):
+    def TryAuthenticate(self, authCredentials = dict):
         authErrors = str()
 
         try:

@@ -1,12 +1,4 @@
-"GET / HTTP/1.1" 200 614
-"GET /static/app/content/Custom.css HTTP/1.1" 200 446
-Not Found: /favicon.ico
-"GET /favicon.ico HTTP/1.1" 404 2600
-"GET /admin/authorizedcontrols? HTTP/1.1" 200 1961
-"GET /static/app/scripts/jquery-1.10.2.min.js HTTP/1.1" 200 94140
-"GET /static/app/scripts/js_cookie.js HTTP/1.1" 200 3872
-"GET /static/app/scripts/Custom/AuthFileUploader.js HTTP/1.1" 200 1817
-"GET /static/app/scripts/Custom/RequestForgeryToken.js HTTP/1.1" 200 914
-"GET /static/app/scripts/Custom/AuthorizedControls.js HTTP/1.1" 200 1212
-"GET /static/app/scripts/knockout-3.4.2.min.js HTTP/1.1" 200 60354
-"GET /admin/GetOperationsToggleIdentifier HTTP/1.1" 200 6
+1519527099.969965; INFO; "GET / HTTP/1.1" 200 614
+1519527100.033570; INFO; "GET /static/app/content/Custom.css HTTP/1.1" 200 446
+1519527100.478799; WARNING; Not Found: /favicon.ico
+1519527100.487814; WARNING; "GET /favicon.ico HTTP/1.1" 404 2600

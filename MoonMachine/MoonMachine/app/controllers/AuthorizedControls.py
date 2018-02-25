@@ -39,16 +39,8 @@ def GetOperationsToggleIdentifier(request = HttpRequest()):
 @require_POST
 def AuthenticateWithFile (request = HttpRequest()):
     global Trader
-    global botLock
     inputText = request.POST.get ('authenticationFile')
     fileAsJson = json.loads (inputText)
     authErrors = str()
-
-    if Trader.GetToggleSwitchesState() == ParallelTrader.START_STATE:
-        with botLock:
-            authErrors = Trader.Authenticate (fileAsJson)
-
-    else:
-        authErrors = "Trade bot cannot be authenticated while running."
-
+    authErrors = Trader.Authenticate (fileAsJson)
     return HttpResponse(authErrors)

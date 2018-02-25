@@ -50,14 +50,17 @@
     <Compile Include="MoonMachine\Models\GraphMaker.py" />
     <Compile Include="MoonMachine\Models\LabeledBar.py" />
     <Compile Include="MoonMachine\Models\LabeledBarSeries.py" />
-    <Compile Include="MoonMachine\Models\Trade.py" />
+    <Compile Include="MoonMachine\Models\Order.py" />
+    <Compile Include="MoonMachine\Models\Transaction.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MoonMachine\Models\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MoonMachine\SelectionOptions\ApplicationStatus.py">
+    <Compile Include="MoonMachine\SelectionOptions\LabeledConstants.py" />
+    <Compile Include="MoonMachine\SelectionOptions\MarketAction.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MoonMachine\SelectionOptions\LabeledConstants.py" />
     <Compile Include="MoonMachine\SelectionOptions\ModelLimits.py" />
     <Compile Include="MoonMachine\SelectionOptions\__init__.py" />
     <Compile Include="MoonMachine\settings.py" />

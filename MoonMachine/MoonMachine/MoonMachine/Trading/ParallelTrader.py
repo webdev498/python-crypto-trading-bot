@@ -9,16 +9,14 @@ class ParallelTrader(object):
     IDLE_STATE = 'Idle'
     RUNNING_STATE = 'Running'    
 
-    def __init__(self):
-        Thread.__init__(self, name = "ParallelTrader")       
-        
+    def __init__(self):        
         self.__portfolio = [
             MarketManager(XBT_STRING, AUD_STRING, IndependentReserveContext()),
         ]
         
         self.__operation = ParallelTrader._Operation(self.__portfolio)
-        self.__logger = Logger(self.__class__)
-        self.__logger.info('initialised with ' + len(self.__portfolio) + ' markets.')
+        self.__logger = Logger(str(self.__class__))
+        self.__logger.info('initialised with ' + str(len(self.__portfolio)) + ' markets.')
         
     def GetToggleSwitchesState(self):
         """Thread safe"""
@@ -58,15 +56,14 @@ class ParallelTrader(object):
         """NOT THREAD SAFE"""
         originalState = self.__operation.is_alive()
         self.__ToggleOperation(False)
-        authErrors = str()        
-        self.__portfolio 
+        authErrors = str()                
         self.__ToggleOperation(originalState)
         return authErrors
 
     def IsSufficientlyAuthenticated(self):
         """thread safe""" 
         for market in self.__portfolio:
-            if market.IsAuthenticated == False:
+            if market.__isAuthenticated == False:
                 return False
 
         return True
@@ -76,7 +73,7 @@ class ParallelTrader(object):
             return market.GetAuthAppStatus()
 
     class _Operation(Thread):  #single underscore notation signifies this is 
-        def __init__(self, markets = list()):
+        def __init__(self, markets = list):
             self.ToggleSwitchesState = ParallelTrader.IDLE_STATE
             self.__markets = markets
 
