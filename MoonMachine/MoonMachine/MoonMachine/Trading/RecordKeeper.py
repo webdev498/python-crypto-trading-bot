@@ -36,3 +36,6 @@ class RecordKeeper(object):
 
     def SubmitSummary(self, summary = LabeledBarSeries):
         pass
+
+    def GetSecondarySecurityExposure(self):
+        return float()

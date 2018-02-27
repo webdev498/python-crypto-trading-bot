@@ -56,10 +56,10 @@ class MarketManager(object):
                         self.__recordKeeper.SubmitTransaction(possibleCompletion)
                        
             #market exposure
-            self.__log.info("Defaulting market exposure.")
             minimumProfit = self.__exchange.ExchangesMinimumProfitPercentage()
-            salePrice = self.__executiveAnalyzer.GetMinimumProfitPrice(latestTrade, minimumProfit)           
-            disposalSale = self.__exchange.Sell(self.__primarySecurity, self.__secondarySecurity, latestTrade.GetReceivedAmount(), salePrice)                                       
+            marketExposure = self.__recordKeeper.GetSecondarySecurityExposure()
+            salePrice = self.__executiveAnalyzer.GetMinimumProfitPrice(marketExposure, minimumProfit)           
+            disposalSale = self.__exchange.Sell(self.__secondarySecurity, self.__primarySecurity, marketExposure, salePrice)                                       
             cloudOpenOrders.append(disposalSale)
 
         else:
