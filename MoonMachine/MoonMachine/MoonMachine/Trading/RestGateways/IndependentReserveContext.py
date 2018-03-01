@@ -9,6 +9,7 @@ import hmac,hashlib
 import json
 from datetime import datetime
 import logging
+from decimal import Decimal
 
 from MoonMachine.Models.Order import Order
 from MoonMachine.Models.Transaction import Transaction
@@ -97,11 +98,11 @@ class IndependentReserveContext(IExchange):
         return labeledSeries
 
     @overrides
-    def Buy(self, securityToGive = str, securityToReceive = str, giveAmount = int, receiveAmount = int):
+    def Buy(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
         return Order()
 
     @overrides
-    def Sell(self, securityToGive = str, securityToReceive = str, giveAmount = int, receiveAmount = int):
+    def Sell(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
         return Order()
 
     @overrides

@@ -2,30 +2,45 @@ from django.db import models
 from MoonMachine.SelectionOptions.ModelLimits import *
 from MoonMachine.SelectionOptions.MarketAction import MarketAction
 from datetime import datetime
+from decimal import Decimal
+import csv
+from io import StringIO
 
-class Transaction(object):
-    def __init__(self, state = MarketAction, receivedAmount = int, givenAmount = int, TransactionTime = datetime, **kwargs):
+class Transaction(models.Model):
+    marketAction = models.CharField(max_length=4)
+
+    primarySecurity = models.CharField(max_length=4)
+    secondarySecurity = models.CharField(max_length=4)
+    receivedAmount = models.DecimalField()
+    givenAmount = models.DecimalField()
+
+    date = models.DateField()
+    currentExposure = models.FloatField()
+    misc = models.CharField()
+
+    def __init__(self, state = MarketAction, inputPrimarySecurity = str, inputSecondarySecurity = str, inputReceivedAmount = Decimal, inputGivenAmount = Decimal, inputTransactionTime = datetime, inputPeviousExposure = Decimal **kwargs):
         if state == MarketAction.HOLD:
             getLogger().error("A transaction cannot have the state: " + str(MarketAction.HOLD))
             raise Exception()
 
-        self.__tradeState = state
-        self.__receivedAmount = receivedAmount
-        self.__GivenAmount = givenAmount
-        self.__transactionTime = TransactionTime
-        self.__miscellaneous = kwargs
+        marketAction = state
 
-    def GetOrderState(self):
-        return self.__tradeState
+        self.primarySecurity = inputPrimarySecurity
+        self.secondarySecurity = inputSecondarySecurity
+        self.receivedAmount = inputReceivedAmount
+        self.givenAmount = inputGivenAmount
 
-    def GetReceivedAmount(self):
-        return self.__receivedAmount
+        self.date = inputTransactionTime
+        self.currentExposure = inputPeviousExposure
 
-    def GetGivenAmount(self):
-        return self.__GivenAmount
+        if self.marketAction == MarketAction.BUY:
+            self.currentExposure += self.receivedAmount
 
-    def GetTimeOf(self):
-        return self.__transactionTime
+        else:
+            self.currentExposure -= self.receivedAmount
 
-    def GetMiscellaneousProperties(self):
-        return self.__miscellaneous
+        fileLikeObj = StringIO()
+        serialiser = csv.writer(fileLikeObj)
+
+        for row in kwargs:
+            self.misc = serialiser.writerow()

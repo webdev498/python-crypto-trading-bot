@@ -109,7 +109,6 @@
     <Content Include="app\static\app\scripts\knockout-3.4.2.min.js" />
     <Content Include="app\templates\app\AuthorizedControls.html" />
     <Content Include="requirements.txt" />
-    <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
     <Content Include="app\static\app\content\site.css" />

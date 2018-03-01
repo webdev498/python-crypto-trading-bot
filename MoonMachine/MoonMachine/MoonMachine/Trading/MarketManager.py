@@ -48,9 +48,11 @@ class MarketManager(object):
 
             #close open orders
             for order in cloudOpenOrders:
+                previousTransaction = self.__exchange.GetMarketUpdate()
+
                 if order.GetOrderState() == Order.BUY:
                     self.__log.info("Cancelling open buy order.")
-                    possibleCompletion = self.__exchange.CancelOrder(order)
+                    possibleCompletion = self.__exchange.CancelOrder(order, previousTransaction)
 
                     if possibleCompletion != None:
                         self.__recordKeeper.SubmitTransaction(possibleCompletion)

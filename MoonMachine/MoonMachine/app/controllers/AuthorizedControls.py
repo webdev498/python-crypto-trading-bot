@@ -14,7 +14,7 @@ botLock = Lock()
 @login_required
 @requires_csrf_token
 @require_POST
-def ToggleOperations (request = HttpRequest()):
+def ToggleOperations (request = HttpRequest):
     global Trader #global must be defined everywhere that Trader is used so that it is not considered a local object      
     global botLock
     switchState = Trader.GetToggleSwitchesState()
@@ -30,14 +30,14 @@ def ToggleOperations (request = HttpRequest()):
 
 @login_required
 @requires_csrf_token
-def GetOperationsToggleIdentifier(request = HttpRequest()):
+def GetOperationsToggleIdentifier(request = HttpRequest):
     global Trader
     return JsonResponse (Trader.GetToggleSwitchesState(), DjangoJSONEncoder, False) #setting the safe param to false always with non dictionary words? /shrug       
 
 @login_required
 @requires_csrf_token
 @require_POST
-def AuthenticateWithFile (request = HttpRequest()):
+def AuthenticateWithFile (request = HttpRequest):
     global Trader
     inputText = request.POST.get ('authenticationFile')
     fileAsJson = json.loads (inputText)

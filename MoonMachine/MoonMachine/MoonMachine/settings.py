@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'app',
+    'MoonMachine.Models'
     # Add your apps here to enable them
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,11 +90,13 @@ DATABASES = {
         'PASSWORD': Hidden.DB_PASS,
         'AUTOCOMMIT': True,
         'TEST': {
-            
-        }
+            'Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;'
+        },
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

@@ -4,6 +4,7 @@ from pyalgotrade.bar import BasicBar, Bar
 from abc import ABC, abstractmethod, abstractproperty
 from MoonMachine.Trading.RestGateways.BitbucketContext import BitbucketContext
 from MoonMachine.Models.Order import Order
+from decimal import Decimal
 
 class IExchange(ABC):
     """base class"""
@@ -24,11 +25,11 @@ class IExchange(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def Buy(self, securityToGive = str, securityToReceive = str, giveAmount = int, receiveAmount = int):
+    def Buy(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
         raise NotImplementedError()
 
     @abstractmethod
-    def Sell(self, securityToGive = str, securityToReceive = str, giveAmount = int, receiveAmount = int):
+    def Sell(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
         raise NotImplementedError()
 
     @abstractmethod
