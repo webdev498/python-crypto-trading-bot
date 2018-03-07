@@ -1,10 +1,8 @@
 from MoonMachine.Trading.RestGateways.IExchange import IExchange
 from MoonMachine.Trading.RecordKeeper import RecordKeeper
 from pyalgotrade.bar import Bar
-from MoonMachine.Models.LabeledBarSeries import LabeledBarSeries
-from MoonMachine.Models.DatedLabel import DatedLabel
+from MoonMachine.ModelsModule import LabeledBarSeries, DatedLabel, Order
 import logging
-from MoonMachine.Models.Order import Order
 from MoonMachine.Trading.Strategy.ExecutiveAnalyzer import ExecutiveAnalyzer
 import logging
 
@@ -21,12 +19,12 @@ class MarketManager(object):
 
     def Work(self):
         if self.__isAuthenticated:
-            #wip
-            marketHistory = self.__recordKeeper.GetMarketSummaries()
-            historyLength = len(marketHistory)            
-            lastKnownBar = Bar() if historyLength == 0 else marketHistory[historyLength - 1]
+            #marketHistory = self.__recordKeeper.GetMarketSummaries()
+            #historyLength = len(marketHistory)            
+            #lastKnownBar = Bar() if historyLength == 0 else marketHistory[historyLength - 1]
             #self.__exchange.GetMarketUpdate(lastKnownBar, self.__primarySecurity, self.__secondarySecurity)
             #test = LabeledBarSeries([Bar(), Bar()], [DatedLabel()])
+            pass
 
     def AttemptAuthentication(self, serviceCredentials = dict):
         authErrors = self.__exchange.AuthenticateExchange(serviceCredentials, self.__primarySecurity, self.__secondarySecurity)
@@ -44,7 +42,6 @@ class MarketManager(object):
         if self.__isAuthenticated:
             self.__log.info("Beginning disposal of the " + self.__primarySecurity + " / " + self.__secondarySecurity + " market.")
             cloudOpenOrders = self.__exchange.GetOpenOrders()
-            localOpenOrders = self.__recordKeeper.GetOpenOrders()
 
             #close open orders
             for order in cloudOpenOrders:
@@ -59,7 +56,7 @@ class MarketManager(object):
                        
             #market exposure
             minimumProfit = self.__exchange.ExchangesMinimumProfitPercentage()
-            marketExposure = self.__recordKeeper.GetSecondarySecurityExposure()
+            marketExposure = self.__recordKeeper.GetSecondarySecurityExposure((self.__exchange.__class__))
             salePrice = self.__executiveAnalyzer.GetMinimumProfitPrice(marketExposure, minimumProfit)           
             disposalSale = self.__exchange.Sell(self.__secondarySecurity, self.__primarySecurity, marketExposure, salePrice)                                       
             cloudOpenOrders.append(disposalSale)

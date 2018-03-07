@@ -1,15 +1,14 @@
 from MoonMachine.Trading.RestGateways.NexmoContext import NexmoContext
 from MoonMachine.Trading.RestGateways.BitbucketContext import BitbucketContext
-from MoonMachine.Models.Order import Order
-from MoonMachine.Models.LabeledBar import LabeledBar
-from MoonMachine.Models.LabeledBarSeries import LabeledBarSeries
-from MoonMachine.Models.Transaction import Transaction
+from MoonMachine.ModelsModule import Order, LabeledBar, LabeledBarSeries, Transaction
+from logging import getLogger
 
 class RecordKeeper(object):
     """description of class"""
     def __init__(self): #fixed bug where the naming convention for constructor was missing an underscore on each side
         self.__notifier = NexmoContext()
         self.BitbucketGateway = BitbucketContext()
+        self.log = getLogger(str(self.__class__))
 
     def Authenticate(self, authCredentials = list):
         authErrors = self.__notifier.AuthenticateNotiferService (authCredentials)
@@ -19,11 +18,12 @@ class RecordKeeper(object):
     def GetTransactions(self):
         return list()
 
-    def GetOnetransaction(self):
-        return Order()
+    def GetLastTransaction(self):
+        #Transaction.objects.get()
+        pass
 
     def SubmitTransaction(self, transaction = Transaction):
-        pass
+        transaction.save()
 
     def GetMarketSummaries(self):
         return list()
@@ -37,5 +37,9 @@ class RecordKeeper(object):
     def SubmitSummary(self, summary = LabeledBarSeries):
         pass
 
-    def GetSecondarySecurityExposure(self):
-        return float()
+    def GetSecondarySecurityExposure(self, marketName):
+        result = Transaction.objects.all(market = marketName).latest('date').first()
+        self.log.info('Query found transaction from the ' + result.market + '...')
+        self.log.info('...a date of ' + str(result.date) + '...')
+        self.log.info('...and an exposure of ' + str(currentExposure))
+        return result
