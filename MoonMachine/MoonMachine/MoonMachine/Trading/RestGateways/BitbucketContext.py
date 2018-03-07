@@ -1,5 +1,5 @@
 from overrides import overrides
-from MoonMachine.Models.DatedLabel import DatedLabel
+from MoonMachine.ModelsModule import DatedLabel
 from datetime import datetime
 
 class BitbucketContext(object):

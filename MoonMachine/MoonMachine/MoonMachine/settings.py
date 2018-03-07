@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import posixpath
-from MoonMachine.HiddenSettings import Hidden
+from MoonMachine.HiddenSettings import HiddenSettings
 from MoonMachine.SelectionOptions.LabeledConstants import LOG_FILE
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,10 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = Hidden.SECRET_KEY
+SECRET_KEY = HiddenSettings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = Hidden.DEBUG_MODE
+DEBUG = HiddenSettings.DEBUG_MODE
 
 ALLOWED_HOSTS = []
 
@@ -34,8 +35,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'app',
-    'MoonMachine.Models'
+    'app', #Enables locating the templates
+    'MoonMachine',
     # Add your apps here to enable them
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,7 +62,9 @@ ROOT_URLCONF = 'MoonMachine.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [            
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,23 +83,37 @@ WSGI_APPLICATION = 'MoonMachine.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-            'ENGINE': 'sql_server.pyodbc',
+        'ENGINE': 'sql_server.pyodbc',
         'NAME': 'Moon Machine database',
-        'HOST': 'server.database.windows.net',
+        'HOST': 'moonmachine-server.database.windows.net',
         'PORT': '1433',
-        'USER': Hidden.DB_USER,
-        'PASSWORD': Hidden.DB_PASS,
+        'USER': HiddenSettings.DB_USER,
+        'PASSWORD': HiddenSettings.DB_PASS,
         'AUTOCOMMIT': True,
-        'TEST': {
-            'Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;'
-        },
         'OPTIONS': {
             'driver': 'ODBC Driver 13 for SQL Server',
         },
     }
 }
+
+import socket
+currentHostname = socket.gethostname()
+
+if currentHostname == HiddenSettings.LOCAL_HOSTNAME:
+    DATABASES['default'] = {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'MoonMachineTestDatabase',
+        'HOST': HiddenSettings.LOCAL_SERVERNAME,
+        'PORT': '',
+        'AUTOCOMMIT': True,
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -142,22 +159,6 @@ STATICFILESS_DIRS = [
         os.path.join (BASE_DIR, "static"),
     ]
 
-TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': ["templates"],
-            'APP_DIRS': True,
-            'OPTIONS':  {
-                    'context_processors': [
-                    'django.template.context_processors.debug',
-                    'django.template.context_processors.request',
-                    'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
-                ],
-            },
-        }
-    ]
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -187,6 +188,10 @@ LOGGING = {
         }
     }
 }
+
+STATICFILES_FINDERS = ( 'django.contrib.staticfiles.finders.FileSystemFinder', 
+                       'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+                       ) 
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'

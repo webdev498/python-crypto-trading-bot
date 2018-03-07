@@ -20,12 +20,12 @@ urlpatterns = [
     
 
     url(r'^$',
-        TemplateView.as_view(template_name="app/index.html")),
+        Index),
 
     url(r'^(?i)admin/authorizedcontrols', 
         AuthorizedControls),
 
-    url(r'^(?i)admin', include(admin.site.urls),
+    url(r'^(?i)admin', admin.site.urls,
         name = 'admin'),
 
     #INTERFACES
@@ -38,6 +38,6 @@ urlpatterns = [
         GetOperationsToggleIdentifier),
 
     url(r'^(?i)admin/authenticatewithfile',
-        AuthenticateWithFile),
+        AuthenticateWithFile)
 
 ]

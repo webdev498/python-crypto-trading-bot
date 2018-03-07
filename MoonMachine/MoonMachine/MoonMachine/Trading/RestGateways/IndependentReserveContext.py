@@ -1,7 +1,8 @@
 from MoonMachine.Trading.RestGateways.IExchange import IExchange
 import requests
-from MoonMachine.Models.LabeledBar import LabeledBar
-from MoonMachine.Models.LabeledBarSeries import LabeledBarSeries
+
+from MoonMachine.ModelsModule import LabeledBar, Transaction, Order, LabeledBarSeries
+
 from pyalgotrade.bar import BasicBar, Frequency
 from overrides import overrides
 import time
@@ -11,28 +12,26 @@ from datetime import datetime
 import logging
 from decimal import Decimal
 
-from MoonMachine.Models.Order import Order
-from MoonMachine.Models.Transaction import Transaction
-
 from ccxt.independentreserve import independentreserve
+import ccxt
 
 class IndependentReserveContext(IExchange):
     """description of class"""
 
     def __init__(self):
         super().__init__()
-        self.__publicKey = str()
-        self.__privateKey = str()
-        self.__log = logging.getLogger(str(self.__class__))
-        self.__profitPercentage = 0.02
+        
+        self.__apiKey = str()
+        self.__apiSecret = str()
+        self.__nonce = str()
 
-    @overrides
-    def Name(self):
-        return "independent exchange"
+        self.__log = logging.getLogger(str(self.__class__))
+        self.__profitPercentage = Decimal('0.02')
+        self.__base = independentreserve()
 
     @overrides
     def AuthenticateExchange (self, authDetails = dict, primarySecurity = str, secondarySecurity = str):
-        environmentLabel = ". " + self.Name() + ": ";
+        environmentLabel = ". " + str(self.__class__) + ": "
         authErrors = str()   
         return authErrors
 

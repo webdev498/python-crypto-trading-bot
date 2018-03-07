@@ -3,7 +3,7 @@ from pyalgotrade.dataseries.bards import BarDataSeries
 from pyalgotrade.bar import BasicBar, Bar
 from abc import ABC, abstractmethod, abstractproperty
 from MoonMachine.Trading.RestGateways.BitbucketContext import BitbucketContext
-from MoonMachine.Models.Order import Order
+from MoonMachine.ModelsModule import Order
 from decimal import Decimal
 
 class IExchange(ABC):
@@ -14,10 +14,6 @@ class IExchange(ABC):
 
     @abstractmethod
     def GetMarketUpdate(self, lastKnownBar = Bar, labels = list, primarySecurity = str, secondarySecurity = str):
-        raise NotImplementedError()
-
-    @abstractproperty
-    def Name(self):
         raise NotImplementedError()
 
     @abstractmethod

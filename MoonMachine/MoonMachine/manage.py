@@ -2,17 +2,17 @@
 """
 Command-line utility for administrative tasks.
 """
-
 import os
 import sys
-from MoonMachine.Trading.ParallelTrader import ParallelTrader
 from MoonMachine.settings import BASE_DIR
 from MoonMachine.SelectionOptions.LabeledConstants import LOG_FILE
 
-with open(BASE_DIR + LOG_FILE, mode = 'w') as clearedLog:
-    pass
 
-Trader = ParallelTrader()
+try: #in case filedoes not exist
+    with open(BASE_DIR + LOG_FILE, mode = 'w') as clearedLog:
+        pass
+except Exception:
+    pass
 
 try:
     if __name__ == "__main__":

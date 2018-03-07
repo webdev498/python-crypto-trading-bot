@@ -1,4 +1,3 @@
-from manage import Trader
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import requires_csrf_token
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from threading import Lock
 
 botLock = Lock()
+Trader = ParallelTrader()
     
 @login_required
 @requires_csrf_token
