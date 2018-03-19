@@ -28,8 +28,7 @@
         <button id="submitButton"
                 class="green-and-purple" 
                 data-bind="click: OnSubmit">submit</button>        
-    </div>
-    <br />    
+    </div> 
 
     <div class="right-buttons beige-background">
         <div> 
@@ -38,7 +37,7 @@
                   class="focus-of-box"></span>
         </div>              
 
-        <div data-bind="if: ShouldDisplayControl">
+        <div data-bind="visible: ShouldDisplayControl">
             <button id="toggleButton"
                     class="green-and-purple"
                     data-bind="click: OnToggle">
@@ -46,16 +45,34 @@
             </button>
         </div>
     </div>  
+
+    <table class="left-buttons authentication-table">
+        <thead>
+            <tr class="beige-background">
+                <td>Manager Name</td>
+                <td>Outcome</td>
+            </tr>
+        </thead>
+
+        <tbody data-bind="visible: AuthenticationOutcomes().length > 0,
+                            foreach: AuthenticationOutcomes">
+            <tr>
+                <td data-bind="text: MarketManagerName"></td>
+                <td data-bind="text: Outcome"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
 
 {% load staticfiles %}
 <script src="{% static 'app/scripts/jquery-1.10.2.min.js' %}" type="text/javascript"></script> <!--type is required for script tags in anything less than html5-->
-<script src="{% static 'app/scripts/js_cookie.js' %}"></script>
+<script src="{% static 'app/scripts/js_cookie.js' %}" type="text/javascript"></script>
 <script src="{% static 'app/scripts/Custom/AuthFileUploader.js' %}" type="text/javascript"></script>
-<script src="{% static 'app/scripts/Custom/RequestForgeryToken.js' %}"></script>
-<script src="{% static 'app/scripts/knockout-3.4.2.min.js' %}"></script>
-<script src="{% static 'app/scripts/Custom/AuthorizedControls.js' %}"></script>
+<script src="{% static 'app/scripts/Custom/RequestForgeryToken.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/scripts/knockout-3.4.2.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/scripts/Custom/AuthorizedControls.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/scripts/Custom/Models/AuthenticationOutcome.js' %}" type="text/javascript"></script>
 
 <script>
     SetupCsrfToken();

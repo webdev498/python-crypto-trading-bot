@@ -1,6 +1,3 @@
-class TradeFeeds(object):
-    """description of class"""
-    def __init__(self):
-        pass
+from django.http import HttpRequest
 
 

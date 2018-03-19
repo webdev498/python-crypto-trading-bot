@@ -5,7 +5,6 @@ Definition of urls for MoonMachine.
 from django.conf.urls import url
 from app.controllers.Pages import *
 from app.controllers.AuthorizedControls import *
-from app.controllers.TradeFeeds import TradeFeeds
 from django.contrib.auth.decorators import login_required
 
 # Uncomment the next lines to enable the admin:
@@ -16,9 +15,7 @@ from django.views.generic import TemplateView
 admin.autodiscover()
 
 urlpatterns = [
-    #PAGES
-    
-
+    #PAGES    
     url(r'^$',
         Index),
 

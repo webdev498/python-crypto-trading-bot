@@ -1,21 +1,30 @@
-from MoonMachine.Trading.RestGateways.IExchange import IExchange
-from MoonMachine.Trading.RecordKeeper import RecordKeeper
-from pyalgotrade.bar import Bar
+from MoonMachine.RecordKeeper import RecordKeeper
+from MoonMachine.Trading.RestGateways.ExchangeWrapper import ExchangeWrapper
 from MoonMachine.ModelsModule import LabeledBarSeries, DatedLabel, Order
-import logging
 from MoonMachine.Trading.Strategy.ExecutiveAnalyzer import ExecutiveAnalyzer
+
+from pyalgotrade.bar import Bar
+from ccxt import Exchange
+
 import logging
+from decimal import Decimal
 
 class MarketManager(object):
     """description of class"""
-    def __init__(self, primarySecurity = str, secondarySecurity = str, exchangeInstance = IExchange): #fixed bug where params were in the wrong order
+    def __init__(self, primarySecurity = str, secondarySecurity = str, exchangeInstance = Exchange): #fixed bug where params were in the wrong order
+        self.__log = logging.getLogger(str(self.__class__))
+        self.__log.info('creating new market manager.')
         self.__primarySecurity = primarySecurity
         self.__secondarySecurity = secondarySecurity
-        self.__exchange = exchangeInstance
+        self.__exchange = ExchangeWrapper (exchangeInstance, Decimal(0.02))
         self.__recordKeeper = RecordKeeper()
         self.__executiveAnalyzer = ExecutiveAnalyzer()
-        self.__isAuthenticated = False
-        self.__log = logging.getLogger(str(self.__class__))
+        self.__isAuthenticated = False        
+        self.__managerName = exchangeInstance.name + " " + secondarySecurity + '/' + primarySecurity
+        self.__log.info('marketManager created.')
+
+    def GetManagerName(self):
+        return self.__managerName
 
     def Work(self):
         if self.__isAuthenticated:
@@ -27,11 +36,14 @@ class MarketManager(object):
             pass
 
     def AttemptAuthentication(self, serviceCredentials = dict):
-        authErrors = self.__exchange.AuthenticateExchange(serviceCredentials, self.__primarySecurity, self.__secondarySecurity)
-        authErrors += self.__recordKeeper.Authenticate(serviceCredentials)
+        authErrors = self.__exchange.AttemptAuthentication(serviceCredentials)
+        authErrors = authErrors + self.__recordKeeper.Authenticate(serviceCredentials)
 
         if authErrors == "":
             self.__isAuthenticated = True
+
+        else:
+            self.__isAuthenticated = False
 
         return authErrors 
 
@@ -62,4 +74,4 @@ class MarketManager(object):
             cloudOpenOrders.append(disposalSale)
 
         else:
-            self.__log("Market manager was not authenticated. Did not dispose.")
+            self.__log.info("Market manager was not authenticated. Did not dispose.")

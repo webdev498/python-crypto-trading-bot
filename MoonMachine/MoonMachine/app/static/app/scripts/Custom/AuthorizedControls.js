@@ -14,12 +14,33 @@ function AuthorizedControlsViewModel()
             return self.FileUploader.IsAuthenticated(); 
         }, self),
 
+        AuthenticationOutcomes: ko.observableArray(),
+
         OnSubmit: function()
         {
-            self.FileUploader.AttemptAuthenticationWithInput();
-        },   
+            GetCurrentStatus()
+                .then(function(data)
+                {
+                    if (data['status'] !== 'Idle')
+                    {
+                        answer = confirm('Are you sure you want to authenticate the bot while running?');
+
+                        if (answer === false)
+                        {
+                            return;
+                        }
+                    }
+
+                    self.FileUploader.AttemptAuthenticationWithInput(function (array)
+                        {
+                            publicStuff.AuthenticationOutcomes(array);
+                        }
+                    );
+                });
+        },         
         
-        OnToggle: function() {            
+        OnToggle: function()
+        {      
             $.ajax ('ToggleOperations', {
                     data: { 
                     },
@@ -37,9 +58,21 @@ function AuthorizedControlsViewModel()
 
     function ApplyCurrentStatus()
     {
-        $.getJSON('GetOperationsToggleIdentifier', {}, function OnGot(data, textStatus, jqXHR)
+        GetCurrentStatus()
+            .then(function(status)
+            {
+                publicStuff.BotsStatus(JSON.stringify(status));
+            });
+    }
+
+    function GetCurrentStatus()
+    {
+        return new Promise(function (resolve, reject)
         {
-            publicStuff.BotsStatus(JSON.stringify(data));
+            $.getJSON('GetOperationsToggleIdentifier', {}, function OnGot(data, textStatus, jqXHR)
+            {
+                resolve(data);
+            });
         });
     }
     return publicStuff;

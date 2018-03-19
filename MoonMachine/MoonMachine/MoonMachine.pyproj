@@ -63,10 +63,8 @@
     <Compile Include="MoonMachine\Trading\Strategy\__init__.py" />
     <Compile Include="MoonMachine\Trading\MarketManager.py" />
     <Compile Include="MoonMachine\Trading\ParallelTrader.py" />
-    <Compile Include="MoonMachine\Trading\RecordKeeper.py" />
-    <Compile Include="MoonMachine\Trading\RestGateways\BitbucketContext.py" />
-    <Compile Include="MoonMachine\Trading\RestGateways\IExchange.py" />
-    <Compile Include="MoonMachine\Trading\RestGateways\IndependentReserveContext.py" />
+    <Compile Include="MoonMachine\RecordKeeper.py" />
+    <Compile Include="MoonMachine\Trading\RestGateways\ExchangeWrapper.py" />
     <Compile Include="MoonMachine\Trading\RestGateways\NexmoContext.py" />
     <Compile Include="MoonMachine\Trading\RestGateways\__init__.py" />
     <Compile Include="MoonMachine\Trading\__init__.py" />
@@ -83,10 +81,9 @@
     <Folder Include="app\static\app\fonts\" />
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\static\app\scripts\Custom\" />
+    <Folder Include="app\static\app\scripts\Custom\Models\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
-    <Folder Include="app\template\" />
-    <Folder Include="app\template\app\" />
     <Folder Include="C:\Users\sjsui\Desktop\git workshop\MoonMachine\MoonMachine\MoonMachine\MoonMachine\app\templates\" />
     <Folder Include="C:\Users\sjsui\Desktop\git workshop\MoonMachine\MoonMachine\MoonMachine\MoonMachine\app\templates\app\" />
     <Folder Include="C:\Users\sjsui\Desktop\git workshop\MoonMachine\MoonMachine\MoonMachine\MoonMachine\app\template\" />
@@ -102,6 +99,7 @@
   <ItemGroup>
     <Content Include="app\static\app\content\Custom.css" />
     <Content Include="app\static\app\scripts\Custom\AuthorizedControls.js" />
+    <Content Include="app\static\app\scripts\Custom\Models\AuthenticationOutcome.js" />
     <Content Include="app\static\app\scripts\Custom\RequestForgeryToken.js" />
     <Content Include="app\static\app\scripts\Custom\AuthFileUploader.js" />
     <Content Include="app\static\app\scripts\js_cookie.js" />
@@ -118,8 +116,6 @@
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="app\static\app\scripts\bootstrap.js" />
-    <Content Include="app\static\app\scripts\bootstrap.min.js" />
     <Content Include="app\static\app\scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="app\static\app\scripts\jquery-1.10.2.js" />
     <Content Include="app\static\app\scripts\jquery-1.10.2.min.js" />
@@ -129,9 +125,6 @@
     <Content Include="app\static\app\scripts\jquery.validate.min.js" />
     <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.js" />
     <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="app\static\app\scripts\modernizr-2.6.2.js" />
-    <Content Include="app\static\app\scripts\respond.js" />
-    <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>

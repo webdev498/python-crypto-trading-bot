@@ -32,7 +32,7 @@ def ToggleOperations (request = HttpRequest):
 @requires_csrf_token
 def GetOperationsToggleIdentifier(request = HttpRequest):
     global Trader
-    return JsonResponse (Trader.GetToggleSwitchesState(), DjangoJSONEncoder, False) #setting the safe param to false always with non dictionary words? /shrug       
+    return JsonResponse ({'status' : Trader.GetToggleSwitchesState()}, DjangoJSONEncoder, False)  
 
 @login_required
 @requires_csrf_token
@@ -41,6 +41,5 @@ def AuthenticateWithFile (request = HttpRequest):
     global Trader
     inputText = request.POST.get ('authenticationFile')
     fileAsJson = json.loads (inputText)
-    authErrors = str()
     authErrors = Trader.Authenticate (fileAsJson)
-    return HttpResponse(authErrors)
+    return JsonResponse(authErrors)

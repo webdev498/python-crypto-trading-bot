@@ -1,4 +1,4 @@
-from MoonMachine.Trading.RestGateways.IExchange import IExchange
+from MoonMachine.Trading.RestGateways.ExchangeWrapper import ExchangeWrapper
 
 class NexmoContext(object):
     """description of class"""

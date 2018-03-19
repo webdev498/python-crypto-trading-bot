@@ -1,14 +1,13 @@
 ///<reference path="../jquery-1.10.2.js" />
 ///<reference path="../knockout-3.4.2.min.js" />
+///<reference path="Models/AuthenticationOutcome.js" />
 
 function AuthFileUploader(fileBoxId)
 {
     var self = this;
-    self.AuthenticateWithJson;
-
     self.fileBox = document.getElementById(fileBoxId);
     
-    function AuthenticateWithJson(jsonString) //declared functions are always available at any line in the class.
+    self.UploadAuthFile = function(jsonString, onSuccessCallBack) //declared functions are always available at any line in the class.
     {        
         $.ajax ("authenticatewithfile", {
             data: { 
@@ -16,16 +15,26 @@ function AuthFileUploader(fileBoxId)
             },
             method: "POST"
         })
-        .success( function OnSuccess(data)
+        .success(function (data)
         {
-            if (data === "") 
+            keys = Object.keys(data);
+
+            if (keys.length > 0) 
             {
-                self.publicStuff.IsAuthenticated(true);
+                frontEndFormatOutcomes = [];
+
+                for (var i = 0; i < keys.length; i++)
+                {
+                    formattedOutcome = (data[keys[i]] === "") ? true : false;
+                    frontEndFormatOutcomes.push(new AuthenticationOutcome(keys[i], formattedOutcome));
+                }
+                publicStuff.IsAuthenticated(true);                
+                onSuccessCallBack(frontEndFormatOutcomes);
             }
 
             else {                
-                self.publicStuff.IsAuthenticated(false);
-                window.alert ("authentication failed: " + data);
+                publicStuff.IsAuthenticated(false);
+                window.alert ("authentication failed.");
             }
         })
         .error(function OnError(jqXHR, textStatus, errorThrown)
@@ -34,23 +43,31 @@ function AuthFileUploader(fileBoxId)
         });
     };
 
-    self.publicStuff = {
-        AttemptAuthenticationWithInput: function()
+    var publicStuff = {
+        AttemptAuthenticationWithInput: function(onSuccessCallBack)
         {
             var file = fileBox.files[0];
             var reader = new FileReader();
             
             reader.onloadend = function SubmitReadersText() 
             {
-                var correctFormat = JSON.parse (reader.result);
-                var correctString = JSON.stringify (correctFormat);
-                AuthenticateWithJson (correctString);
+                try
+                {
+                    var correctFormat = JSON.parse (reader.result);
+                    var correctString = JSON.stringify (correctFormat);
+                    self.UploadAuthFile (correctString, onSuccessCallBack);
+                }
+
+                catch (e)
+                {
+                    alert('Files text could not be turned into json')
+                }                
             };
 
             if (file !== null)
             {
                 reader.readAsText(file);
-            }    
+            }
 
             else
             {
@@ -59,5 +76,5 @@ function AuthFileUploader(fileBoxId)
         },
         IsAuthenticated: ko.observable(false)
     };
-    return self.publicStuff;
-}
+    return publicStuff;
+};

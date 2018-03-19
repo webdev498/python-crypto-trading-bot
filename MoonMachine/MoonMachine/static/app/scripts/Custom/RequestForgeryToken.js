@@ -20,10 +20,9 @@ function SetupCsrfToken()
         {
             beforeSend: function (xhr, settings)
             {
-                if (CsrfSafeMethod (settings.type) && 
+                if (CsrfSafeMethod (settings.type) === false && 
                     this.crossDomain === false)
                 {
-                    window.alert('csrf token set ');
                     xhr.setRequestHeader ('X-CSRFToken', csrfToken); //fixed bug where string was not in the right forma
                 }
             }
