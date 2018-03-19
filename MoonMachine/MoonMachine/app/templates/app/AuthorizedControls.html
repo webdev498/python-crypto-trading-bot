@@ -11,9 +11,8 @@
 <body>    
     <div width="auto"
          height="200px"
-         class="left-buttons beige-background">
-        <span class="focus-of-box"
-              style="text-decoration: underline">
+         class="left-buttons background">
+        <span class="title focus-of-box">
             Exchange Authentication
         </span>
         <br />
@@ -27,30 +26,31 @@
         <br />
         <button id="submitButton"
                 class="green-and-purple" 
-                data-bind="click: OnSubmit">submit</button>        
+                data-bind="click: OnSubmit">submit</button>     
+        <span data-bind="visible: IsSubmitting">Submitting...</span>
     </div> 
 
-    <div class="right-buttons beige-background">
-        <div> 
-            <span>Operation Status: </span>
+    <div class="right-buttons background">
+        <p>
+            <span class="title">Operation Status: </span>
             <span data-bind="text: BotsStatus"
                   class="focus-of-box"></span>
-        </div>              
+        </p>
 
-        <div data-bind="visible: ShouldDisplayControl">
+        <p data-bind="visible: ShouldDisplayControl">
             <button id="toggleButton"
                     class="green-and-purple"
                     data-bind="click: OnToggle">
                 Toggle Operations
             </button>
-        </div>
+        </p>
     </div>  
 
     <table class="left-buttons authentication-table">
         <thead>
-            <tr class="beige-background">
+            <tr class="background">
                 <td>Manager Name</td>
-                <td>Outcome</td>
+                <td>Auth Outcome</td>
             </tr>
         </thead>
 

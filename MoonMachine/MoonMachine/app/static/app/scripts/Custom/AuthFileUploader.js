@@ -7,7 +7,7 @@ function AuthFileUploader(fileBoxId)
     var self = this;
     self.fileBox = document.getElementById(fileBoxId);
     
-    self.UploadAuthFile = function(jsonString, onSuccessCallBack) //declared functions are always available at any line in the class.
+    self.UploadAuthFile = function(jsonString, onSuccessCallBack, onErrorCallback) //declared functions are always available at any line in the class.
     {        
         $.ajax ("authenticatewithfile", {
             data: { 
@@ -39,12 +39,13 @@ function AuthFileUploader(fileBoxId)
         })
         .error(function OnError(jqXHR, textStatus, errorThrown)
         {
+            onErrorCallback(errorThrown);
             window.alert ("authentication failed: " + errorThrown);
         });
     };
 
     var publicStuff = {
-        AttemptAuthenticationWithInput: function(onSuccessCallBack)
+        AttemptAuthenticationWithInput: function(onSuccessCallBack, onErrorCallback)
         {
             var file = fileBox.files[0];
             var reader = new FileReader();
@@ -54,8 +55,8 @@ function AuthFileUploader(fileBoxId)
                 try
                 {
                     var correctFormat = JSON.parse (reader.result);
-                    var correctString = JSON.stringify (correctFormat);
-                    self.UploadAuthFile (correctString, onSuccessCallBack);
+                    var correctString = JSON.stringify(correctFormat);
+                    self.UploadAuthFile(correctString, onSuccessCallBack, onErrorCallback);
                 }
 
                 catch (e)

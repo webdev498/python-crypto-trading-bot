@@ -16,8 +16,11 @@ function AuthorizedControlsViewModel()
 
         AuthenticationOutcomes: ko.observableArray(),
 
+        IsSubmitting: ko.observable(false),
+
         OnSubmit: function()
         {
+            
             GetCurrentStatus()
                 .then(function(data)
                 {
@@ -30,12 +33,19 @@ function AuthorizedControlsViewModel()
                             return;
                         }
                     }
+                    publicStuff.IsSubmitting(true);
 
-                    self.FileUploader.AttemptAuthenticationWithInput(function (array)
+                    self.FileUploader.AttemptAuthenticationWithInput(
+                        function onSuccess(array)
                         {
+                            publicStuff.IsSubmitting(false);
                             publicStuff.AuthenticationOutcomes(array);
-                        }
-                    );
+                        },                    
+
+                        function onError(message)
+                        {
+                            publicStuff.IsSubmitting(false);
+                        });
                 });
         },         
         
@@ -59,9 +69,9 @@ function AuthorizedControlsViewModel()
     function ApplyCurrentStatus()
     {
         GetCurrentStatus()
-            .then(function(status)
+            .then(function(data)
             {
-                publicStuff.BotsStatus(JSON.stringify(status));
+                publicStuff.BotsStatus(data['status']);
             });
     }
 

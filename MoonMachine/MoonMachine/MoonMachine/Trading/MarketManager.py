@@ -14,7 +14,7 @@ class MarketManager(object):
     def __init__(self, primarySecurity = str, secondarySecurity = str, exchangeInstance = Exchange): #fixed bug where params were in the wrong order
         self.__log = logging.getLogger(str(self.__class__))
         self.__log.info('creating new market manager.')
-        self.__primarySecurity = primarySecurity
+        self.__primarySecurity = primarySecurity #placed here since it controls which item to buy / sell. makes exchangewrapper a little more universal
         self.__secondarySecurity = secondarySecurity
         self.__exchange = ExchangeWrapper (exchangeInstance, Decimal(0.02))
         self.__recordKeeper = RecordKeeper()
@@ -53,7 +53,7 @@ class MarketManager(object):
     def Dispose(self):
         if self.__isAuthenticated:
             self.__log.info("Beginning disposal of the " + self.__primarySecurity + " / " + self.__secondarySecurity + " market.")
-            cloudOpenOrders = self.__exchange.GetOpenOrders()
+            cloudOpenOrders = self.__exchange.GetOpenOrders(self.__primarySecurity, self.__secondarySecurity)
 
             #close open orders
             for order in cloudOpenOrders:
@@ -71,7 +71,6 @@ class MarketManager(object):
             marketExposure = self.__recordKeeper.GetSecondarySecurityExposure((self.__exchange.__class__))
             salePrice = self.__executiveAnalyzer.GetMinimumProfitPrice(marketExposure, minimumProfit)           
             disposalSale = self.__exchange.Sell(self.__secondarySecurity, self.__primarySecurity, marketExposure, salePrice)                                       
-            cloudOpenOrders.append(disposalSale)
 
         else:
             self.__log.info("Market manager was not authenticated. Did not dispose.")

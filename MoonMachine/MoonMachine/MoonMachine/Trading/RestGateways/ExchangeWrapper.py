@@ -47,11 +47,11 @@ class ExchangeWrapper(object):
 
     def GetMarketUpdate(self, lastKnownBar = Bar, labels = list, primarySecurity = str, secondarySecurity = str):
         try:
-            response = self.__exchange.fetch_ticker(secondarySecurity + "/" + primarySecurity)     
+            response = self.__exchange.fetch_ticker(symbol = secondarySecurity + "/" + primarySecurity)     
             return response
 
         except Exception as e:
-            self.__log.error("exception occured while fetching market update: " + str(e))
+            self.__log.error(self.__exchange.name + " context could not use api method fetch_ticker. " + str(e))
             raise
         pass
     
@@ -67,9 +67,14 @@ class ExchangeWrapper(object):
         raise NotImplementedError()
 
     
-    def GetOpenOrders(self):
-        raise NotImplementedError()
+    def GetOpenOrders(self, primarySecurity = str, secondarySecurity = str):        
+        try:
+            orders = self.__exchange.fetch_open_orders(symbol = secondarySecurity + "/" + primarySecurity)
+            pass
 
-    
+        except Exception as e:
+            self.__log.error(self.__exchange.name + " context could not use api method fetch_open_orders. " + str(e))
+            raise
+
     def CancelOrder(self, order = Order):
         raise NotImplementedError()
