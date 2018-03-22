@@ -57,6 +57,12 @@
     <Compile Include="MoonMachine\SelectionOptions\ModelLimits.py" />
     <Compile Include="MoonMachine\SelectionOptions\__init__.py" />
     <Compile Include="MoonMachine\settings.py" />
+    <Compile Include="MoonMachine\Trading\RestGateways\IExchangeWrapper.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MoonMachine\Trading\RestGateways\IndependentReserveWrapper.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MoonMachine\Trading\Strategy\ExecutiveAnalyzer.py" />
     <Compile Include="MoonMachine\Trading\Strategy\LearningStrategy.py" />
     <Compile Include="MoonMachine\Trading\Strategy\StaticStrategy.py" />
@@ -64,7 +70,6 @@
     <Compile Include="MoonMachine\Trading\MarketManager.py" />
     <Compile Include="MoonMachine\Trading\ParallelTrader.py" />
     <Compile Include="MoonMachine\RecordKeeper.py" />
-    <Compile Include="MoonMachine\Trading\RestGateways\ExchangeWrapper.py" />
     <Compile Include="MoonMachine\Trading\RestGateways\__init__.py" />
     <Compile Include="MoonMachine\Trading\__init__.py" />
     <Compile Include="MoonMachine\urls.py" />

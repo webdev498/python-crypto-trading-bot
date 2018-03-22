@@ -1,4 +1,4 @@
-XBT_STRING = "Xbt"
-AUD_STRING = "Aud"
+XBT_STRING = "BTC"
+AUD_STRING = "AUD"
 
 LOG_FILE = "\log.txt"

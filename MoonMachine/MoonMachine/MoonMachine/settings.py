@@ -31,7 +31,6 @@ DEBUG = HiddenSettings.DEBUG_MODE
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -194,4 +193,4 @@ STATICFILES_FINDERS = ( 'django.contrib.staticfiles.finders.FileSystemFinder',
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
-CSRF_USE_SESSIONS = False
+CSRF_USE_SESSIONS = False #leave as false. if true, it sets the csrf token 

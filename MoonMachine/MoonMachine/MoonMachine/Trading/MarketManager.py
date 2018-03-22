@@ -1,26 +1,24 @@
 from MoonMachine.RecordKeeper import RecordKeeper
-from MoonMachine.Trading.RestGateways.ExchangeWrapper import ExchangeWrapper
+from MoonMachine.Trading.RestGateways.IExchangeWrapper import IExchangeWrapper
 from MoonMachine.ModelsModule import LabeledBarSeries, DatedLabel, Order
 from MoonMachine.Trading.Strategy.ExecutiveAnalyzer import ExecutiveAnalyzer
 
 from pyalgotrade.bar import Bar
-from ccxt import Exchange
 
 import logging
 from decimal import Decimal
 
 class MarketManager(object):
     """description of class"""
-    def __init__(self, primarySecurity = str, secondarySecurity = str, exchangeInstance = Exchange): #fixed bug where params were in the wrong order
+    def __init__(self, primarySecurity = str, secondarySecurity = str, exchangeInstance = IExchangeWrapper): #fixed bug where params were in the wrong order
         self.__log = logging.getLogger(str(self.__class__))
-        self.__log.info('creating new market manager.')
         self.__primarySecurity = primarySecurity #placed here since it controls which item to buy / sell. makes exchangewrapper a little more universal
         self.__secondarySecurity = secondarySecurity
-        self.__exchange = ExchangeWrapper (exchangeInstance, Decimal(0.02))
+        self.__exchange = exchangeInstance
         self.__recordKeeper = RecordKeeper()
         self.__executiveAnalyzer = ExecutiveAnalyzer()
         self.__isAuthenticated = False        
-        self.__managerName = exchangeInstance.name + " " + secondarySecurity + '/' + primarySecurity
+        self.__managerName = exchangeInstance.Name() + " " + secondarySecurity + '/' + primarySecurity
         self.__log.info('marketManager created.')
 
     def GetManagerName(self):

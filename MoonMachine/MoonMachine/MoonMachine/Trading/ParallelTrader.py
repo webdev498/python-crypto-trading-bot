@@ -4,6 +4,7 @@ from MoonMachine.SelectionOptions.LabeledConstants import *
 from threading import Lock
 from logging import Logger, getLogger
 from ccxt import independentreserve
+from MoonMachine.Trading.RestGateways.IndependentReserveWrapper import IndependentReserveWrapper
 
 class ParallelTrader(object):
     IDLE_STATE = 'Idle'
@@ -11,7 +12,7 @@ class ParallelTrader(object):
 
     def __init__(self):             
         self.__portfolio = [
-            MarketManager(AUD_STRING, XBT_STRING, independentreserve()),
+            MarketManager(AUD_STRING, XBT_STRING, IndependentReserveWrapper()),
         ]
         self.__operation = ParallelTrader._Operation(self.__portfolio)
         self.__log = Logger(str(self.__class__))

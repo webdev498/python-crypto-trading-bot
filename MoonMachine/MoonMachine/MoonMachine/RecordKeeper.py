@@ -1,16 +1,13 @@
-from MoonMachine.Trading.RestGateways.NexmoContext import NexmoContext
 from MoonMachine.ModelsModule import Order, LabeledBar, LabeledBarSeries, Transaction
 from logging import getLogger
 
 class RecordKeeper(object):
     """description of class"""
     def __init__(self): #fixed bug where the naming convention for constructor was missing an underscore on each side
-        self.__notifier = NexmoContext()
         self.__log = getLogger(str(self.__class__))
 
     def Authenticate(self, authCredentials = list):
-        authErrors = self.__notifier.AuthenticateNotiferService (authCredentials)
-        return authErrors
+        return ""
 
     def GetTransactions(self):
         return list()
