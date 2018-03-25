@@ -90,10 +90,6 @@
     <Folder Include="app\templates\app\" />
     <Folder Include="app\template\" />
     <Folder Include="app\template\app\" />
-    <Folder Include="C:\Users\sjsui\Desktop\git workshop\MoonMachine\MoonMachine\MoonMachine\MoonMachine\app\templates\" />
-    <Folder Include="C:\Users\sjsui\Desktop\git workshop\MoonMachine\MoonMachine\MoonMachine\MoonMachine\app\templates\app\" />
-    <Folder Include="C:\Users\sjsui\Desktop\git workshop\MoonMachine\MoonMachine\MoonMachine\MoonMachine\app\template\" />
-    <Folder Include="C:\Users\sjsui\Desktop\git workshop\MoonMachine\MoonMachine\MoonMachine\MoonMachine\app\template\app\" />
     <Folder Include="MoonMachine\migrations\" />
     <Folder Include="MoonMachine\migrations\__pycache__\" />
     <Folder Include="MoonMachine\Trading\Strategy\" />

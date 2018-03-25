@@ -68,16 +68,24 @@ class Transaction(models.Model):
 ##################################################
 ##BACKEND ONLY MODELS
 class Order(object):    
-    def __init__(self, state = MarketAction, receivedAmount = int, givenAmount = int, orderTime = datetime, **kwargs):
+    def __init__(self, cloudOrderId = int, market = str, state = MarketAction, pairsSymbol = str, inputReceivedAmount = Decimal, inputGivenAmount = Decimal, inputOrderTime = datetime, **kwargs):
         if state == MarketAction.HOLD:
             getLogger().error("An order cannot have the state: " + str(MarketAction.HOLD))
             raise Exception()
 
+        self.__cloudOrderId = cloudOrderId
+        self.__pairsSymbol = pairsSymbol
         self.__orderState = state
         self.__receivedAmount = receivedAmount
         self.__GivenAmount = givenAmount
         self.__orderTime = orderTime
         self.__miscellaneous = kwargs
+
+    def GetCloudOrderId(self):
+        return self.__cloudOrderId
+
+    def GetPairsSymbol(self):
+        return self.__pairsSymbol
 
     def GetOrderState(self):
         return self.__orderState

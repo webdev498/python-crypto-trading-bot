@@ -1,7 +1,9 @@
 from MoonMachine.Trading.RestGateways.IExchangeWrapper import IExchangeWrapper
 from MoonMachine.ModelsModule import LabeledBar, Transaction, Order, LabeledBarSeries
-from pyalgotrade.bar import BasicBar, Frequency
+from pyalgotrade.bar import BasicBar, Frequency, Bar
 from ccxt.independentreserve import independentreserve
+
+from ccxt.bittrex import bittrex
 
 from overrides import overrides
 import json
@@ -17,8 +19,8 @@ class IndependentReserveWrapper(IExchangeWrapper):
         
         self.__apiKey = str()
         self.__apiSecret = str()
-        self.__base = independentreserve()
-        self.__name = self.__base.describe()['name']
+        self.__base = bittrex()
+        self.__name = self.__base.describe()['name'].lower()
         self.__log = getLogger(str(self.__class__))
         self.__profitPercentage = Decimal('0.02')
 
@@ -30,8 +32,8 @@ class IndependentReserveWrapper(IExchangeWrapper):
     @overrides
     def AttemptAuthentication (self, authDetails = dict):
         try:            
-            self.__base.apiKey = authDetails['independent reserve']['apiKey']
-            self.__base.secret = authDetails['independent reserve']['secret']
+            self.__base.apiKey = authDetails[self.__name]['apiKey']
+            self.__base.secret = authDetails[self.__name]['secret']
 
         except Exception as e:
             error = 'wrong format in auth file for exchange: ' + self.Name() + ". " + str(e)
@@ -40,47 +42,46 @@ class IndependentReserveWrapper(IExchangeWrapper):
 
         try:
             self.__base.fetch_balance()
-
             return ''
 
         except Exception as e:
             error = 'authentication failed using given apiKey and secret for exchange: ' + self.__name + ". " + str(e)
-            self.__log(error)
+            self.__log.error(error)
             return error
 
     @overrides
-    def GetMarketUpdate(self, lastKnownBar = BasicBar, labels = list, primarySecurity = str, secondarySecurity = str):
+    def GetMarketUpdate(self, lastKnownBar = Bar, labels = list, pairsSymbol = str):
         """Returns a LabeledBar of todays market summary."""
-        requestLocator = r"https://api.independentreserve.com/Public/GetMarketSummary?primarycurrencycode=" + primarySecurity + "&secondarycurrencycode=" + secondarySecurity
-        response = requests.get (requestLocator)
-        jsonResult = response.json()
-        dateBarCreated = jsonResult['CreatedTimestampUtc']
-        DayHighestPrice = jsonResult['DayHighestPrice']
-        DayLowestPrice = jsonResult['DayLowestPrice']
-        DayVolumeXbt = jsonResult['DayVolumeXbt']
-        LastPrice = jsonResult['LastPrice']
+        
+        #response = requests.get (requestLocator)
+        #jsonResult = response.json()
+        #dateBarCreated = jsonResult['CreatedTimestampUtc']
+        #DayHighestPrice = jsonResult['DayHighestPrice']
+        #DayLowestPrice = jsonResult['DayLowestPrice']
+        #DayVolumeXbt = jsonResult['DayVolumeXbt']
+        #LastPrice = jsonResult['LastPrice']
 
-        dateBarCreated = datetime.utcfromtimestamp(dateBarCreated)
+        #dateBarCreated = datetime.utcfromtimestamp(dateBarCreated)
 
-        rawSummary = BasicBar(dateBarCreated,
-                                lastKnownBar.getClose(),
-                                DayHighestPrice,
-                                DayLowestPrice,
-                                LastPrice,
-                                DayVolumeXbt,
-                                LastPrice,
-                                0,
-                                None)
+        #rawSummary = BasicBar(dateBarCreated,
+        #                        lastKnownBar.getClose(),
+        #                        DayHighestPrice,
+        #                        DayLowestPrice,
+        #                        LastPrice,
+        #                        DayVolumeXbt,
+        #                        LastPrice,
+        #                        0,
+        #                        None)
 
-        labeledSeries = LabeledBarSeries([labeledSummary], labels)
-        return labeledSeries
+        #labeledSeries = LabeledBarSeries([labeledSummary], labels)
+        #return labeledSeries
 
     @overrides
-    def Buy(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
+    def Buy(self, pairsSymbol = str, giveAmount = Decimal, receiveAmount = Decimal):
         return Order()
 
     @overrides
-    def Sell(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
+    def Sell(self, pairsSymbol = str, giveAmount = Decimal, receiveAmount = Decimal):
         return Order()
 
     @overrides
@@ -89,31 +90,26 @@ class IndependentReserveWrapper(IExchangeWrapper):
         return self.__profitPercentage
 
     @overrides
-    def GetOpenOrders(self, primarySecurity = str, secondarySecurity = str):
-        stuff = self.__base.fetch_order_book(symbol = secondarySecurity + "/" + primarySecurity)
-        symbols = self.__base.symbols
-        pass
-        #try:
-        #    orders = self.__base.fetch_open_orders(symbol = secondarySecurity + "/" + primarySecurity)
-        #    return orders
+    def GetOpenOrders(self, pairsSymbol = str):
+        pairsSymbol = 'BTC/USDT'
+        self.__base.load_markets()
+        market = self.__base.market(pairsSymbol)
+        request = dict()
+        request['market'] = market['id']
 
-        #except Exception as e:
-        #    self.__log.error(self.__base.name + " context could not use api method fetch_open_orders. " + str(e))
-        #    raise
+        try:
+            response = self.__base.marketGetOpenorders(request)
+            orders = self.__base.parse_orders(response['result'], market)
+            filteredOrders = self.__base.filter_by_symbol(orders, pairsSymbol)
+            #return map()
 
-#        self.load_markets()
-#        request = {}
-#        market = None
-#        if symbol:
-#            market = self.market(symbol)
-#            request['market'] = market['id']
-#        response = self.marketGetOpenorders(self.extend(request, params))
-#        orders = self.parse_orders(response['result'], market, since, limit)
-#return self.filter_by_symbol(orders, symbol)
+        except Exception as e:
+            self.__log.error(self.__name + " context does not have api method marketGetOpenorders. " + str(e))
+            raise
 
     @overrides
     def CancelOrder(self, order = Order):
-        return Transaction() 
+        self.__base.cancel_order()
 
     @overrides
     def ExchangesRateLimit(self):

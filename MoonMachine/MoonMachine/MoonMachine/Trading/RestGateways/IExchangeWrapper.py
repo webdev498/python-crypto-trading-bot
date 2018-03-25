@@ -18,15 +18,15 @@ class IExchangeWrapper(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def GetMarketUpdate(self, lastKnownBar = Bar, labels = list, primarySecurity = str, secondarySecurity = str):
+    def GetMarketUpdate(self, lastKnownBar = Bar, labels = list, pairsSymbol = str):
         raise NotImplementedError()
 
     @abstractmethod
-    def Buy(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
+    def Buy(self, pairsSymbol = str, giveAmount = Decimal, receiveAmount = Decimal):
         raise NotImplementedError()
 
     @abstractmethod
-    def Sell(self, securityToGive = str, securityToReceive = str, giveAmount = Decimal, receiveAmount = Decimal):
+    def Sell(self, pairsSymbol = str, giveAmount = Decimal, receiveAmount = Decimal):
         raise NotImplementedError()
 
     @abstractmethod
@@ -34,7 +34,7 @@ class IExchangeWrapper(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def GetOpenOrders(self, primarySecurity = str, secondarySecurity = str):        
+    def GetOpenOrders(self, pairsSymbol = str):        
         raise NotImplementedError()
 
     @abstractmethod
@@ -44,3 +44,7 @@ class IExchangeWrapper(ABC):
     @abstractmethod
     def ExchangesRateLimit(self):
         raise NotImplementedError()
+
+    def _ConvertJsonToOrder(self, inputOrder = dict):
+        pass
+
