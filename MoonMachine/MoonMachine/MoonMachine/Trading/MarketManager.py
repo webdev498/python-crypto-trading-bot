@@ -18,7 +18,7 @@ class MarketManager(object):
         self.__recordKeeper = RecordKeeper()
         self.__executiveAnalyzer = ExecutiveAnalyzer()
         self.__isAuthenticated = False   
-        self.__pairsSymbol = secondarySecurity + "/" + primarySecurity
+        self.__pairsSymbol = str.capitalize(secondarySecurity + "/" + primarySecurity)
         self.__managerName = exchangeInstance.Name() + " " + self.__pairsSymbol
         self.__log.info('marketManager created.')
 
@@ -52,7 +52,7 @@ class MarketManager(object):
     def Dispose(self):
         if self.__isAuthenticated:
             self.__log.info("Beginning disposal of the " + self.__pairsSymbol + " market.")
-            cloudOpenOrders = self.__exchange.GetOpenOrders(self.__pairsSymbol)
+            cloudOpenOrders = self.__exchange.GetOpenOrders(self.__primarySecurity, self.__secondarySecurity)
 
             #close open orders
             for order in cloudOpenOrders:

@@ -3,6 +3,7 @@ from pyalgotrade.bar import BasicBar, Bar
 from abc import ABC, abstractmethod, abstractproperty
 from MoonMachine.ModelsModule import Order
 from decimal import Decimal
+from functools import partial
 
 class IExchangeWrapper(ABC):
     """description of class"""
@@ -45,6 +46,14 @@ class IExchangeWrapper(ABC):
     def ExchangesRateLimit(self):
         raise NotImplementedError()
 
-    def _ConvertJsonToOrder(self, inputOrder = dict):
-        pass
+    def _BubbleWrapRequest(self, function, *args): #one dash to allow access to derived classes
+        try:
+            positionedArgumentsFunc = partial(function, *args)
+            return positionedArgumentsFunc()
 
+        except Exception as e:
+            self.__log.error(self.Name() + "something went wrong while requesting an exchange: " + str(e))
+
+    @abstractmethod
+    def _ConvertJsonToOrder(self, jsonObject = dict):
+        raise NotImplementedError()
