@@ -16,6 +16,7 @@ admin.autodiscover()
 
 urlpatterns = [
     #PAGES    
+    #===============================
     url(r'^$',
         Index),
 
@@ -26,13 +27,13 @@ urlpatterns = [
         name = 'admin'),
 
     #INTERFACES
-
+    #===============================
     #omitting the appended $ means it will match on a string which contains, not equals, the expression   
     url(r'^(?i)admin/toggleoperations', 
         ToggleOperations),
 
-    url(r'^(?i)admin/getoperationstoggleidentifier',
-        GetOperationsToggleIdentifier),
+    url(r'^(?i)admin/getbotsstatus',
+        GetBotsStatus),
 
     url(r'^(?i)admin/authenticatewithfile',
         AuthenticateWithFile)

@@ -7,6 +7,7 @@ from pyalgotrade.bar import Bar
 
 import logging
 from decimal import Decimal
+from django.http.request import HttpRequest
 
 class MarketManager(object):
     """description of class"""
@@ -18,9 +19,16 @@ class MarketManager(object):
         self.__recordKeeper = RecordKeeper()
         self.__executiveAnalyzer = ExecutiveAnalyzer()
         self.__isAuthenticated = False   
-        self.__pairsSymbol = str.capitalize(secondarySecurity + "/" + primarySecurity)
-        self.__managerName = exchangeInstance.Name() + " " + self.__pairsSymbol
+        pairsSymbol = str.capitalize(primarySecurity + "/" + secondarySecurity)
+        self.__managerName = exchangeInstance.Name() + " " + pairsSymbol
+
+        #volatile injections
+        self.__multiThreadedRequest = None
+
         self.__log.info('marketManager created.')
+
+    def SetRequestObject(self, injectedObject = HttpRequest):
+        self.__multiThreadedRequest = injectedObject
 
     def GetManagerName(self):
         return self.__managerName
@@ -51,25 +59,31 @@ class MarketManager(object):
 
     def Dispose(self):
         if self.__isAuthenticated:
-            self.__log.info("Beginning disposal of the " + self.__pairsSymbol + " market.")
-            cloudOpenOrders = self.__exchange.GetOpenOrders(self.__primarySecurity, self.__secondarySecurity)
+            self.__log.info("Beginning disposal of the " + self.GetManagerName() + " market.")
+            cloudOpenOrders = self.__exchange.GetOpenOrders(self.__primarySecurity, self.__secondarySecurity, self.GetManagerName())
 
             #close open orders
-            for order in cloudOpenOrders:
-                previousTransaction = self.__exchange.GetMarketUpdate()
-
+            for order in cloudOpenOrders:                
                 if order.GetOrderState() == Order.BUY:
                     self.__log.info("Cancelling open buy order.")
-                    possibleCompletion = self.__exchange.CancelOrder(order, previousTransaction)
+                    possibleCompletion = self.__exchange.CancelOrder(order)
 
                     if possibleCompletion != None:
+                        possibleCompletion.user_id = self.__multiThreadedRequest.user.id
                         self.__recordKeeper.SubmitTransaction(possibleCompletion)
                        
             #market exposure
-            minimumProfit = self.__exchange.ExchangesMinimumProfitPercentage()
-            marketExposure = self.__recordKeeper.GetSecondarySecurityExposure((self.__exchange.__class__))
-            salePrice = self.__executiveAnalyzer.GetMinimumProfitPrice(marketExposure, minimumProfit)           
+            fee = self.__exchange.ExchangesFeePercentage()
+            possibleMarketInfo = self.__recordKeeper.GetMarketInfo(self.__exchange.Name(), self.__multiThreadedRequest.user.id)
+            marketExposure = Decimal()
+
+            if possibleMarketInfo is not None:
+                marketExposure = possibleMarketInfo.currentExposure
+
+            salePrice = self.__executiveAnalyzer.GetMinimumProfitPrice(marketExposure, fee)           
             disposalSale = self.__exchange.Sell(self.__secondarySecurity, self.__primarySecurity, marketExposure, salePrice)                                       
 
         else:
             self.__log.info("Market manager was not authenticated. Did not dispose.")
+
+        self.SetRequestObject(None)

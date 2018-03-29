@@ -1,4 +1,5 @@
 from threading import Thread
+from django.http.request import HttpRequest
 from MoonMachine.Trading.MarketManager import MarketManager
 from MoonMachine.SelectionOptions.LabeledConstants import *
 from threading import Lock
@@ -19,7 +20,7 @@ class ParallelTrader(object):
         self.__log.info('initialised with ' + str(len(self.__portfolio)) + ' markets.')
         
     def GetToggleSwitchesState(self):
-        self.__log.info('returning switches state.')
+        self.__log.info('returning a switch state of: ' + str(self.__operation.ToggleSwitchesState))
         return self.__operation.ToggleSwitchesState
 
     def Start(self):
@@ -27,8 +28,12 @@ class ParallelTrader(object):
             self.__log.info('starting parallel trader.')
             self.__ToggleOperation(True)
 
-    def Stop(self):
+    def Stop(self, request = HttpRequest):
         self.__log.info('stopping parallel trader.')
+        
+        for manager in self.__portfolio:
+            manager.SetRequestObject(request)
+
         self.__ToggleOperation(False)
 
     def __ToggleOperation(self, ShouldStart = bool):
@@ -91,4 +96,7 @@ class ParallelTrader(object):
                 for market in self.__markets:
                     market.Dispose()
 
-                self.ToggleSwitchesState = ParallelTrader.IDLE_STATE            
+                self.ToggleSwitchesState = ParallelTrader.IDLE_STATE
+
+
+        

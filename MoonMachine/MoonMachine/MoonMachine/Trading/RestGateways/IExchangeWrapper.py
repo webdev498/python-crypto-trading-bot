@@ -1,13 +1,16 @@
 from pyalgotrade.dataseries.bards import BarDataSeries
 from pyalgotrade.bar import BasicBar, Bar
 from abc import ABC, abstractmethod, abstractproperty
-from MoonMachine.ModelsModule import Order
+from MoonMachine.ModelsModule import Order, Transaction
 from decimal import Decimal
 from functools import partial
+from time import sleep
+from logging import getLogger
 
 class IExchangeWrapper(ABC):
     """description of class"""
     def __init__(self):
+        self.__log = getLogger(str(self.__class__))
         super().__init__()    
 
     @abstractmethod
@@ -31,11 +34,11 @@ class IExchangeWrapper(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def ExchangesMinimumProfitPercentage(self):
+    def ExchangesFeePercentage(self):
         raise NotImplementedError()
 
     @abstractmethod
-    def GetOpenOrders(self, pairsSymbol = str):        
+    def GetOpenOrders(self, primarySecurity = str, secondarySecuity = str, managersName = str):        
         raise NotImplementedError()
 
     @abstractmethod
@@ -48,12 +51,17 @@ class IExchangeWrapper(ABC):
 
     def _BubbleWrapRequest(self, function, *args): #one dash to allow access to derived classes
         try:
-            positionedArgumentsFunc = partial(function, *args)
-            return positionedArgumentsFunc()
-
+            sleep(self.ExchangesRateLimit())
+            partiallyFilledFunction = partial(function, *args)
+            return partiallyFilledFunction()
+            
         except Exception as e:
             self.__log.error(self.Name() + "something went wrong while requesting an exchange: " + str(e))
 
     @abstractmethod
-    def _ConvertJsonToOrder(self, jsonObject = dict):
+    def _MapJsonToOrder(self, jsonObject = dict):
+        raise NotImplementedError()
+    
+    @abstractmethod
+    def _ReduceToTransaction(self, wipTransaction = Transaction, jsonObject = dict):
         raise NotImplementedError()

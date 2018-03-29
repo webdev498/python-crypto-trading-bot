@@ -1,5 +1,11 @@
-from MoonMachine.ModelsModule import Order, LabeledBar, LabeledBarSeries, Transaction
+from MoonMachine.ModelsModule import Order, LabeledBar, LabeledBarSeries, Transaction, MarketInfo
+
 from logging import getLogger
+from decimal import Decimal
+
+from django.contrib.auth.models import User
+from django.http.request import HttpRequest
+
 
 class RecordKeeper(object):
     """description of class"""
@@ -10,30 +16,62 @@ class RecordKeeper(object):
         return ""
 
     def GetTransactions(self):
-        return list()
+        raise NotImplementedError()
 
     def GetLastTransaction(self):
-        #Transaction.objects.get()
-        pass
+        """Can return None!"""
+        query = Transaction.objects.order_by('date')
+
+        if query:
+            return query.last() #negative sign returns results in descending order
+
+        else:
+            return None
 
     def SubmitTransaction(self, transaction = Transaction):
+        currentExposure = Decimal()
+        currentUser = GetCurrentUser()
+
+        if transaction.marketAction == MarketAction.BUY:
+            currentExposure += transaction.receivedAmount
+
+        elif transaction.marketAction == MarketAction.SELL:
+            currentExposure -= transaction.receivedAmount
+        
+        possibleExisting = MarketInfo.objects.filter(marketPair = transaction.marketPair, user_id = transaction.user)
+
+        if possibleExisting:
+            match = possibleExisting.first()
+            match.currentExposure = currentExposure
+            match.save()
+
+        else:
+            MarketInfo().Fill(transaction.user, transaction.marketPair, currentExposure).save()
+
         transaction.save()
 
     def GetMarketSummaries(self):
-        return list()
+        raise NotImplementedError()
 
-    def GetOneSummary(self):
-        pass
+    def GetOneMarketSummary(self):
+        raise NotImplementedError()
 
-    def SubmitBar(self, bar = LabeledBar):
-        pass
+    def SubmitLabeledBar(self, bar = LabeledBar):
+        raise NotImplementedError()
 
-    def SubmitSummary(self, summary = LabeledBarSeries):
-        pass
+    def SubmitMarketSummary(self, summary = LabeledBarSeries):
+        raise NotImplementedError()
 
-    def GetSecondarySecurityExposure(self, marketName):
-        result = Transaction.objects.all(market = marketName).latest('date').first()
-        self.__log.info('Query found transaction from the ' + result.market + '...')
-        self.__log.info('...a date of ' + str(result.date) + '...')
-        self.__log.info('...and an exposure of ' + str(currentExposure))
-        return result
+    def GetMarketInfo(self, marketName = str, currentUserId = int):
+        """Can return None!"""
+
+        possibleMatch = MarketInfo.objects.filter(marketPair = marketName, user_id = currentUserId)
+
+        if possibleMatch:
+            self.__log.info('found matching market summary.')
+            result = possibleMatch.first()
+            return result
+
+        else:
+            self.__log.warning('no matching market summary found!')
+            return None

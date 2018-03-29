@@ -79,7 +79,7 @@ function AuthorizedControlsViewModel()
     {
         return new Promise(function (resolve, reject)
         {
-            $.getJSON('GetOperationsToggleIdentifier', {}, function OnGot(data, textStatus, jqXHR)
+            $.getJSON('getbotsstatus', {}, function OnGot(data, textStatus, jqXHR)
             {
                 resolve(data);
             });

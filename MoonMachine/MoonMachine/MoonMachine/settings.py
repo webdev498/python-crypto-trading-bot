@@ -15,10 +15,8 @@ import posixpath
 from MoonMachine.HiddenSettings import HiddenSettings
 from MoonMachine.SelectionOptions.LabeledConstants import LOG_FILE
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -194,3 +192,7 @@ STATICFILES_FINDERS = ( 'django.contrib.staticfiles.finders.FileSystemFinder',
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 CSRF_USE_SESSIONS = False #leave as false. if true, it sets the csrf token 
+
+TEMPLATE_CONTEXT_PROCESSORS = [ # required in order to fetch the current user from an import, instead of a dependency injection
+    'django.core.context_processors.request'    
+] 

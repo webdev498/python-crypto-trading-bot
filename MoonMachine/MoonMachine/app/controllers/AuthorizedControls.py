@@ -8,7 +8,6 @@ from MoonMachine.Trading.ParallelTrader import ParallelTrader
 from django.contrib.auth.decorators import login_required
 from threading import Lock
 
-botLock = Lock()
 Trader = ParallelTrader()
     
 @login_required
@@ -16,21 +15,19 @@ Trader = ParallelTrader()
 @require_POST
 def ToggleOperations (request = HttpRequest):
     global Trader #global must be defined everywhere that Trader is used so that it is not considered a local object      
-    global botLock
     switchState = Trader.GetToggleSwitchesState()
 
-    with botLock:
-        if switchState == ParallelTrader.IDLE_STATE:
-            Trader.Start()                
+    if switchState == ParallelTrader.IDLE_STATE:
+        Trader.Start()                
 
-        elif switchState == ParallelTrader.RUNNING_STATE:
-            Trader.Stop()
-    
+    elif switchState == ParallelTrader.RUNNING_STATE:
+        Trader.Stop(request)
+
     return HttpResponse()
 
 @login_required
 @requires_csrf_token
-def GetOperationsToggleIdentifier(request = HttpRequest):
+def GetBotsStatus(request = HttpRequest):
     global Trader
     return JsonResponse ({'status' : Trader.GetToggleSwitchesState()}, DjangoJSONEncoder, False)  
 
